@@ -41,8 +41,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:80px;background:var(--earth)}
 .cat-card{background:var(--timber);border:1px solid rgba(181,82,26,0.1);overflow:hidden;cursor:pointer;text-decoration:none;display:block;transition:border-color .25s}
 .cat-card:hover{border-color:rgba(181,82,26,0.4)}
-.cat-card-img{height:240px;background-size:cover;background-position:center;filter:brightness(0.6) saturate(0.65);transition:filter .4s,transform .5s}
-.cat-card:hover .cat-card-img{filter:brightness(0.5) saturate(0.55);transform:scale(1.04)}
+.cat-card-img{height:300px;background-size:contain;background-position:center;background-repeat:no-repeat;background-color:#1e1a10;filter:brightness(0.85) saturate(0.75);transition:filter .4s,transform .5s}
+.cat-card:hover .cat-card-img{filter:brightness(0.75) saturate(0.65);transform:scale(1.03)}
 .cat-card-body{padding:28px 26px}
 .cat-card-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--blaze);font-weight:700;margin-bottom:8px}
 .cat-card-name{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;letter-spacing:1.5px;color:var(--white);line-height:1;margin-bottom:10px}
