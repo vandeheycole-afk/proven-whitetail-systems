@@ -135,10 +135,38 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
   </ul>
 </nav>
 
+<style>
+.prod-gallery{position:sticky;top:88px;height:calc(100vh - 88px);display:flex;flex-direction:column;gap:0;background:var(--timber);overflow:hidden}
+.gallery-main{flex:1;overflow:hidden;cursor:pointer}
+.gallery-main-img{width:100%;height:100%;background-size:cover;background-position:center;filter:brightness(0.78) saturate(0.7);transition:background-image 0.3s ease}
+.gallery-thumbs{display:flex;height:90px;flex-shrink:0;gap:2px;padding:2px;background:var(--earth);overflow-x:auto}
+.gallery-thumb{flex-shrink:0;width:80px;background-size:cover;background-position:center;filter:brightness(0.5) saturate(0.6);cursor:pointer;transition:filter .2s;border-bottom:2px solid transparent}
+.gallery-thumb:hover{filter:brightness(0.7) saturate(0.8)}
+.gallery-thumb.active{filter:brightness(0.85) saturate(0.9);border-bottom:2px solid var(--rust)}
+@media(max-width:900px){.prod-gallery{position:relative;height:auto;top:auto}.gallery-main{height:280px}.gallery-thumbs{height:72px}}
+</style>
 <div class="prod-layout">
   <div class="prod-gallery">
-    <div class="prod-gallery-img-div" style="background-image:url('https://redneckblinds.com/cdn/shop/products/Sportsman_Burlap_with_Turkeys_54f0ebda-cc8e-4aab-a743-d849573d913b_2000x.jpg?v=1598577043');width:100%;height:100%"></div>
+    <div class="gallery-main">
+      <div class="gallery-main-img" id="mainImg" style="background-image:url('https://redneckblinds.com/cdn/shop/products/sportsmans-burlap-bale-blind_27e065aa-7633-4c06-82e9-f5cba6f3cdc1_1200x.jpg?v=1598629537')"></div>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="gallery-thumb active" style="background-image:url('https://redneckblinds.com/cdn/shop/products/sportsmans-burlap-bale-blind_27e065aa-7633-4c06-82e9-f5cba6f3cdc1_1200x.jpg?v=1598629537')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/products/sportsmans-burlap-bale-blind_27e065aa-7633-4c06-82e9-f5cba6f3cdc1_1200x.jpg?v=1598629537')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/products/Updated_SportsmanBurlaponBBSled_1200x.jpg?v=1598630452')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/products/Updated_SportsmanBurlaponBBSled_1200x.jpg?v=1598630452')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/products/Sportsman_Burlap_with_Turkeys_54f0ebda-cc8e-4aab-a743-d849573d913b_1200x.jpg?v=1598577043')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/products/Sportsman_Burlap_with_Turkeys_54f0ebda-cc8e-4aab-a743-d849573d913b_1200x.jpg?v=1598577043')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/products/sportsmans-burlap-bale-blind-in-woods_b2851876-7378-45bb-8c33-106e8bb222ab_1200x.jpg?v=1598577043')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/products/sportsmans-burlap-bale-blind-in-woods_b2851876-7378-45bb-8c33-106e8bb222ab_1200x.jpg?v=1598577043')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/products/sportsmans-burlap-bale-blind-in-cornfield_f342ccc1-389a-446d-a31f-6c909eb2d29c_1200x.jpg?v=1598577043')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/products/sportsmans-burlap-bale-blind-in-cornfield_f342ccc1-389a-446d-a31f-6c909eb2d29c_1200x.jpg?v=1598577043')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/products/sportsmans-burlap-blind-interior_93b605fc-2505-415e-ad2f-4395a5c450e9_1200x.jpg?v=1598577043')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/products/sportsmans-burlap-blind-interior_93b605fc-2505-415e-ad2f-4395a5c450e9_1200x.jpg?v=1598577043')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/products/sportsmans-burlap-bale-blind-zipper_38791b31-1133-4c7b-a2fc-f3424eb7c73e_1200x.jpg?v=1598577043')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/products/sportsmans-burlap-bale-blind-zipper_38791b31-1133-4c7b-a2fc-f3424eb7c73e_1200x.jpg?v=1598577043')"></div>
+    </div>
   </div>
+  <script>
+function setImg(thumb, url){
+  document.getElementById('mainImg').style.backgroundImage = "url('"+url+"')";
+  document.querySelectorAll('.gallery-thumb').forEach(t=>t.classList.remove('active'));
+  thumb.classList.add('active');
+}
+</script>
   <div class="prod-info">
     <a href="blinds.html" class="prod-back">← All Blinds</a>
     <div class="prod-tag">Hay Bale Ground Blind</div>

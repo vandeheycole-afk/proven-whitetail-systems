@@ -135,10 +135,38 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
   </ul>
 </nav>
 
+<style>
+.prod-gallery{position:sticky;top:88px;height:calc(100vh - 88px);display:flex;flex-direction:column;gap:0;background:var(--timber);overflow:hidden}
+.gallery-main{flex:1;overflow:hidden;cursor:pointer}
+.gallery-main-img{width:100%;height:100%;background-size:cover;background-position:center;filter:brightness(0.78) saturate(0.7);transition:background-image 0.3s ease}
+.gallery-thumbs{display:flex;height:90px;flex-shrink:0;gap:2px;padding:2px;background:var(--earth);overflow-x:auto}
+.gallery-thumb{flex-shrink:0;width:80px;background-size:cover;background-position:center;filter:brightness(0.5) saturate(0.6);cursor:pointer;transition:filter .2s;border-bottom:2px solid transparent}
+.gallery-thumb:hover{filter:brightness(0.7) saturate(0.8)}
+.gallery-thumb.active{filter:brightness(0.85) saturate(0.9);border-bottom:2px solid var(--rust)}
+@media(max-width:900px){.prod-gallery{position:relative;height:auto;top:auto}.gallery-main{height:280px}.gallery-thumbs{height:72px}}
+</style>
 <div class="prod-layout">
   <div class="prod-gallery">
-    <div class="prod-gallery-img-div" style="background-image:url('https://redneckblinds.com/cdn/shop/files/freedom-hydraulic-trailer-elevated_2000x.jpg?v=1734467739');width:100%;height:100%"></div>
+    <div class="gallery-main">
+      <div class="gallery-main-img" id="mainImg" style="background-image:url('https://redneckblinds.com/cdn/shop/files/freedom-hydraulic-trailer-elevated_2000x.jpg?v=1734467739')"></div>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="gallery-thumb active" style="background-image:url('https://redneckblinds.com/cdn/shop/files/freedom-hydraulic-trailer-elevated_2000x.jpg?v=1734467739')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/files/freedom-hydraulic-trailer-elevated_2000x.jpg?v=1734467739')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/files/freedom-hydraulic-trailer-cutout_1200x.jpg?v=1734467739')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/files/freedom-hydraulic-trailer-cutout_1200x.jpg?v=1734467739')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/files/freedom-hydraulic-trailer-collapsed_1200x.jpg?v=1734467739')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/files/freedom-hydraulic-trailer-collapsed_1200x.jpg?v=1734467739')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/files/button-to-lift-hydraulic-stand_1200x.jpg?v=1734467739')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/files/button-to-lift-hydraulic-stand_1200x.jpg?v=1734467739')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/files/freedom-trailer-with-truck-hitch_1200x.jpg?v=1734467739')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/files/freedom-trailer-with-truck-hitch_1200x.jpg?v=1734467739')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/files/battery-for-hydraulics_1200x.jpg?v=1734467739')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/files/battery-for-hydraulics_1200x.jpg?v=1734467739')"></div>
+      <div class="gallery-thumb" style="background-image:url('https://redneckblinds.com/cdn/shop/files/freedom-trailer-frame_1200x.jpg?v=1734467739')" onclick="setImg(this,'https://redneckblinds.com/cdn/shop/files/freedom-trailer-frame_1200x.jpg?v=1734467739')"></div>
+    </div>
   </div>
+  <script>
+function setImg(thumb, url){
+  document.getElementById('mainImg').style.backgroundImage = "url('"+url+"')";
+  document.querySelectorAll('.gallery-thumb').forEach(t=>t.classList.remove('active'));
+  thumb.classList.add('active');
+}
+</script>
   <div class="prod-info">
     <a href="blinds.html" class="prod-back">← All Blinds</a>
     <div class="prod-tag">Mobile Blind System</div>
