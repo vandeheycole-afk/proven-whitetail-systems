@@ -2,8 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="Proven Whitetail Systems is Northeastern Wisconsin's authorized Redneck Blinds dealer based in Kaukauna. We sell, deliver, and install fiberglass hunting blinds, Freedom Campers, QuietKat e-bikes, and cellular trail cameras across NE Wisconsin.">
+<meta name="keywords" content="Redneck Blinds dealer Wisconsin, hunting blinds Kaukauna, fiberglass hunting blind Wisconsin, whitetail hunting blinds NE Wisconsin, QuietKat ebike Wisconsin, Freedom Camper Wisconsin">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Proven Whitetail Systems">
+<!-- Open Graph -->
+<meta property="og:title" content="Proven Whitetail Systems | Redneck Blinds Dealer — Kaukauna, WI">
+<meta property="og:description" content="Proven Whitetail Systems is Northeastern Wisconsin's authorized Redneck Blinds dealer based in Kaukauna. We sell, deliver, and install fiberglass hunting blinds, Freedom Campers, QuietKat e-bikes, and cellular trail cameras across NE Wisconsin.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://redneckblinds.com/cdn/shop/files/camo-buck-palace-hunting-blind_5000x.jpg?v=1739311584">
+<meta property="og:site_name" content="Proven Whitetail Systems">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Proven Whitetail Systems | Redneck Blinds Dealer — Kaukauna, WI">
+<meta name="twitter:description" content="Proven Whitetail Systems is Northeastern Wisconsin's authorized Redneck Blinds dealer based in Kaukauna. We sell, deliver, and install fiberglass hunting blinds, Freedom Campers, QuietKat e-bikes, and cellular trail cameras across NE Wisconsin.">
+<meta name="twitter:image" content="https://redneckblinds.com/cdn/shop/files/camo-buck-palace-hunting-blind_5000x.jpg?v=1739311584">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proven Whitetail Systems | Authorized Redneck Blinds Dealer — Kaukauna, WI</title>
+<title>Proven Whitetail Systems | Redneck Blinds Dealer — Kaukauna, WI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
@@ -216,26 +231,101 @@
   .hero-sub{animation:fadeUp .7s .66s both}
   .hero-ctas{animation:fadeUp .7s .8s both}
 
-  /* MOBILE */
+  /* ── MOBILE ── */
   @media(max-width:900px){
-    nav{padding:0 18px}
+
+    /* NAV — hamburger */
+    nav{padding:0 20px;height:68px}
+    .nav-logo img{height:40px}
+    .nav-logo-top{font-size:16px;letter-spacing:2px}
+    .nav-logo-sub{font-size:8px;letter-spacing:2px}
     .nav-links{display:none}
-    .hero-content{padding:120px 24px 120px}
-    .hero-logo-lockup img{height:60px}
-    .hero-lockup-name{font-size:20px}
-    .hero-stats{grid-template-columns:repeat(2,1fr)}
-    .about,.contact{grid-template-columns:1fr;padding:80px 24px;gap:44px}
+    .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:300}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--stone);transition:all .3s}
+    .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(24,22,15,0.99);backdrop-filter:blur(16px);border-bottom:2px solid var(--rust);z-index:199;padding:24px 20px;flex-direction:column;gap:0}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{display:block;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);text-decoration:none;font-weight:600;padding:16px 0;border-bottom:1px solid rgba(181,82,26,0.12)}
+    .mobile-menu a:last-child{border-bottom:none;background:var(--rust);color:var(--white);text-align:center;padding:16px;margin-top:12px;letter-spacing:2px}
+    .mobile-menu a:hover{color:var(--blaze)}
+
+    /* HERO */
+    .hero-content{padding:100px 24px 140px}
+    .hero-logo-lockup{gap:12px;margin-bottom:28px}
+    .hero-logo-lockup img{height:52px}
+    .hero-logo-lockup-divider{height:52px}
+    .hero-lockup-name{font-size:18px;letter-spacing:2px}
+    .hero-lockup-tag{font-size:9px}
+    .hero-title{font-size:clamp(56px,14vw,80px)}
+    .hero-rule{width:60px;margin:24px 0}
+    .hero-sub{font-size:15px;margin-bottom:36px}
+    .hero-ctas{flex-direction:column;align-items:flex-start;gap:16px}
+    .btn-blaze{padding:14px 28px;font-size:11px;width:100%;text-align:center}
+    .hero-stats{grid-template-columns:repeat(2,1fr);position:relative;bottom:auto}
+    .hstat{padding:20px 0}
+    .hstat-val{font-size:28px}
+    .hstat-lbl{font-size:8px}
+
+    /* ABOUT */
+    .about{grid-template-columns:1fr;padding:60px 24px;gap:40px}
+    .about::before{display:none}
     .about-cards{grid-template-columns:1fr}
     .acard:first-child{grid-column:auto}
-    .products,.cameras,.services,.why,.testimonials{padding:80px 24px}
-    .products-grid,.cam-grid{grid-template-columns:1fr}
-    .pcard:first-child{grid-row:auto;min-height:280px}
-    .why-inner{grid-template-columns:1fr;gap:36px}
+
+    /* PRODUCTS */
+    .products{padding:60px 24px}
+    .products-hd{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:32px}
+    .products-grid{grid-template-columns:1fr}
+    .pcard{aspect-ratio:4/3}
+    .pcard:first-child{grid-row:auto;min-height:260px;aspect-ratio:4/3}
+    .pcard-desc{opacity:1;transform:none;font-size:12px}
+    .pcard-arrow{opacity:1;transform:scale(1)}
+
+    /* CAMERAS */
+    .cameras{padding:60px 24px}
+    .cameras-hd{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:32px}
+    .cam-grid{grid-template-columns:1fr}
+
+    /* CAMPERS + BIKES */
+    .campers,.bikes{padding:60px 24px}
+    .campers-hd,.bikes-hd{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:32px}
+    .feat-grid{grid-template-columns:1fr}
+    .feat-card{grid-template-columns:1fr}
+    .feat-card-img{min-height:220px}
+    .feat-card-body{padding:28px 24px}
+
+    /* WHY */
+    .why{padding:60px 24px}
+    .why::before{display:none}
+    .why-inner{grid-template-columns:1fr;gap:32px}
     .why-grid{grid-template-columns:1fr}
-    .dealer{padding:56px 24px;grid-template-columns:1fr}
-    .tgrid,.sgrid{grid-template-columns:1fr}
-    footer{padding:52px 24px 28px}
-    .ftop{grid-template-columns:1fr;gap:30px}
+
+    /* DEALER */
+    .dealer{padding:48px 24px;grid-template-columns:1fr;gap:28px}
+    .dealer-emblem{display:none}
+
+    /* TESTIMONIALS */
+    .testimonials{padding:60px 24px}
+    .tgrid{grid-template-columns:1fr}
+    .tcard{padding:32px 24px}
+    .tcard-text{font-size:14px}
+
+    /* SERVICES */
+    .services{padding:60px 24px}
+    .sgrid{grid-template-columns:1fr}
+
+    /* FACEBOOK */
+    .fb-section-grid{grid-template-columns:1fr!important;gap:40px!important;padding:60px 24px!important}
+
+    /* CONTACT */
+    .contact{grid-template-columns:1fr;padding:60px 24px;gap:40px}
+    .contact::before{display:none}
+    .crow{grid-template-columns:1fr}
+    .csub{width:100%;text-align:center}
+
+    /* FOOTER */
+    footer{padding:48px 24px 28px}
+    .ftop{grid-template-columns:1fr;gap:28px}
+    .fbot{flex-direction:column;gap:8px;text-align:center}
   }
 
   /* CAMPERS */
@@ -258,12 +348,14 @@
   .feat-card-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
   .feat-card-tag-pill{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--blaze);background:rgba(181,82,26,0.12);border:1px solid rgba(181,82,26,0.25);padding:5px 11px}
 
+  .fb-section{padding:110px 80px}
   @media(max-width:900px){
-    .campers,.bikes{padding:80px 24px}
-    .feat-grid{grid-template-columns:1fr}
-    .feat-card{grid-template-columns:1fr}
-    .feat-card-img{min-height:200px}
+    .fb-section{padding:60px 24px!important}
   }
+
+  /* HAMBURGER hidden on desktop */
+  .hamburger{display:none}
+  .mobile-menu{display:none}
 
 </style>
 <!-- Google tag (gtag.js) -->
@@ -296,7 +388,41 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="blinds.html">Blinds</a>
+  <a href="cameras.html">Cameras</a>
+  <a href="campers.html">Campers</a>
+  <a href="bikes.html">E-Bikes</a>
+  <a href="#contact">Contact</a>
+  <a href="#contact" class="mobile-cta">Get a Quote →</a>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const spans = hamburger.querySelectorAll('span');
+    if (mobileMenu.classList.contains('open')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px,5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity=''; });
+    });
+  });
+</script>
 
 <!-- HERO -->
 <section class="hero">
@@ -627,8 +753,8 @@
 </section>
 
 <!-- FACEBOOK FEED -->
-<section style="background:var(--timber);padding:110px 80px">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start">
+<section class="fb-section" style="background:var(--timber);padding:110px 80px">
+  <div class="fb-section-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start">
     <div>
       <p class="eyebrow">Stay Connected</p>
       <h2 class="section-title" style="color:var(--parchment);margin-bottom:20px">FOLLOW US ON<br>FACEBOOK</h2>
@@ -680,7 +806,7 @@
         <div class="cinfo-icon">✉️</div>
         <div>
           <div class="cinfo-lbl">Email</div>
-          <div class="cinfo-val"><a href="mailto:buckjvh@gmail.com" style="color:var(--earth);text-decoration:none">buckjvh@gmail.com</a></div>
+          <div class="cinfo-val"><a href="/cdn-cgi/l/email-protection#791b0c1a12130f11391e14181015571a1614" style="color:var(--earth);text-decoration:none"><span class="__cf_email__" data-cfemail="e98b9c8a82839f81a98e84888085c78a8684">[email&#160;protected]</span></a></div>
         </div>
       </div>
       <div class="cinfo-item">
@@ -754,8 +880,4 @@
         <li><a href="#services">Property Consulting</a></li>
         <li><a href="#contact">Get a Free Quote</a></li>
         <li><a href="https://www.facebook.com/p/Proven-Whitetail-Systems-100063631537536/" target="_blank">Facebook Page</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="fbot">
-    <p class="fcopy">© 2025 Proven Whitetail Systems · Kaukauna, Wisconsin · A
+   

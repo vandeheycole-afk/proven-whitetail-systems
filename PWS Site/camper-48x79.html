@@ -1,8 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FREEDOM CAMPER | Proven Whitetail Systems</title>
+<meta charset="UTF-8">
+<meta name="description" content="The Freedom Camper 48×79 fits midsize trucks like the Tacoma, Ranger, and Colorado. Lightweight 4-season adventure camper available through Proven Whitetail Systems in NE Wisconsin.">
+<meta name="keywords" content="Freedom Camper 48x79 Wisconsin, midsize truck camper Wisconsin, Tacoma truck bed camper, hunting truck camper Wisconsin">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Proven Whitetail Systems">
+<!-- Open Graph -->
+<meta property="og:title" content="Freedom Camper 48×79 | Proven Whitetail Systems — Wisconsin">
+<meta property="og:description" content="The Freedom Camper 48×79 fits midsize trucks like the Tacoma, Ranger, and Colorado. Lightweight 4-season adventure camper available through Proven Whitetail Systems in NE Wisconsin.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://redneckblinds.com/cdn/shop/files/camo-buck-palace-hunting-blind_5000x.jpg?v=1739311584">
+<meta property="og:site_name" content="Proven Whitetail Systems">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Freedom Camper 48×79 | Proven Whitetail Systems — Wisconsin">
+<meta name="twitter:description" content="The Freedom Camper 48×79 fits midsize trucks like the Tacoma, Ranger, and Colorado. Lightweight 4-season adventure camper available through Proven Whitetail Systems in NE Wisconsin.">
+<meta name="twitter:image" content="https://redneckblinds.com/cdn/shop/files/camo-buck-palace-hunting-blind_5000x.jpg?v=1739311584"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freedom Camper 48×79 | Proven Whitetail Systems — Wisconsin</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
@@ -133,7 +148,42 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
     <li><a href="index.html#contact">Contact</a></li>
     <li><a href="index.html#contact" class="nav-cta">Get a Quote</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="blinds.html">Blinds</a>
+  <a href="cameras.html">Cameras</a>
+  <a href="campers.html">Campers</a>
+  <a href="bikes.html">E-Bikes</a>
+  <a href="index.html#contact">Contact</a>
+  <a href="index.html#contact" class="mobile-cta">Get a Quote →</a>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const spans = hamburger.querySelectorAll('span');
+    if (mobileMenu.classList.contains('open')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px,5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity=''; });
+    });
+  });
+</script>
 
 <div class="prod-layout">
   <div class="prod-gallery">
