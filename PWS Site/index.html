@@ -289,8 +289,7 @@
     .campers,.bikes{padding:60px 24px}
     .campers-hd,.bikes-hd{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:32px}
     .feat-grid{grid-template-columns:1fr}
-    .feat-card{grid-template-columns:1fr}
-    .feat-card-img{min-height:220px}
+    .feat-card-img{height:220px}
     .feat-card-body{padding:28px 24px}
 
     /* WHY */
@@ -338,10 +337,10 @@
 
   /* SHARED: feature card grid used for campers + bikes */
   .feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
-  .feat-card{display:grid;grid-template-columns:1fr 1fr;gap:0;overflow:hidden;min-height:320px}
-  .feat-card-img{background-size:cover;background-position:center;filter:brightness(0.45) saturate(0.65);transition:filter .4s}
+  .feat-card{display:flex;flex-direction:column;overflow:hidden}
+  .feat-card-img{height:280px;background-size:cover;background-position:center;filter:brightness(0.45) saturate(0.65);transition:filter .4s;flex-shrink:0}
   .feat-card:hover .feat-card-img{filter:brightness(0.38) saturate(0.55)}
-  .feat-card-body{background:var(--timber);padding:36px 32px;display:flex;flex-direction:column;justify-content:center;border-top:3px solid var(--rust)}
+  .feat-card-body{background:var(--timber);padding:36px 32px;display:flex;flex-direction:column;justify-content:flex-start;border-top:3px solid var(--rust);flex:1}
   .feat-card-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--blaze);font-weight:700;margin-bottom:10px}
   .feat-card-name{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;letter-spacing:1.5px;color:var(--white);line-height:1;margin-bottom:12px}
   .feat-card-desc{font-size:13.5px;line-height:1.75;color:var(--stone);font-weight:300}
@@ -353,9 +352,13 @@
     .fb-section{padding:60px 24px!important}
   }
 
-  /* HAMBURGER hidden on desktop */
+  /* HAMBURGER — only shown on mobile */
   .hamburger{display:none}
   .mobile-menu{display:none}
+  @media(max-width:1100px){
+    .nav-links{display:none}
+    .hamburger{display:flex}
+  }
 
 </style>
 <!-- Google tag (gtag.js) -->
