@@ -143,10 +143,10 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
 .gallery-cta{background:var(--rust);padding:72px 80px;display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center}
 .gallery-cta-title{font-family:'Oswald',sans-serif;font-size:clamp(28px,4vw,46px);font-weight:700;letter-spacing:2px;line-height:1;color:var(--white)}
 .gallery-cta-sub{font-size:15px;line-height:1.8;color:rgba(247,243,232,0.82);font-weight:300;margin-top:14px;max-width:560px}
-.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;align-items:center;justify-content:center;padding:40px}
 .lightbox.open{display:flex}
-.lightbox-img{max-width:92vw;max-height:92vh;object-fit:contain}
-.lb-close{position:fixed;top:20px;right:28px;font-size:38px;color:#fff;cursor:pointer;line-height:1;opacity:.7;transition:opacity .2s;background:none;border:none;font-family:sans-serif}
+.lightbox-img{max-width:90vw;max-height:90vh;width:auto;height:auto;object-fit:contain;box-shadow:0 0 60px rgba(0,0,0,0.8)}
+.lb-close{position:fixed;top:16px;right:24px;font-size:42px;color:#fff;cursor:pointer;line-height:1;opacity:.8;transition:opacity .2s;background:none;border:none;font-family:sans-serif;z-index:10000}
 .lb-close:hover{opacity:1}
 @media(max-width:900px){
   .gallery-hero{padding:110px 24px 60px}
@@ -299,19 +299,19 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
 
     <!-- 1: Snowy winter install — wide -->
     <div class="pg-item wide">
-      <img class="pg-img" src="images/Install pic 2.jpg" alt="Buck Palace winter tower install" onclick="openLb(this)">
+      <img class="pg-img" src="images/winter blind.jpg" alt="Buck Palace winter tower install" onclick="openLb(this)">
       <div class="pg-overlay"><div><div class="pg-label">Winter Tower Install</div><div class="pg-sub">Buck Palace 6×6 — NE Wisconsin</div></div></div>
     </div>
 
     <!-- 2: Buck harvest -->
     <div class="pg-item">
-      <img class="pg-img" src="images/Chris Ham.jpg" alt="Customer buck harvest" onclick="openLb(this)" style="object-fit:contain;background:#1e1a10">
+      <img class="pg-img" src="images/Chris Ham.jpg" alt="Customer buck harvest" onclick="openLb(this)">
       <div class="pg-overlay"><div><div class="pg-label">Chris Hamm — HHA Sights</div><div class="pg-sub">Bow Kill — NE Wisconsin</div></div></div>
     </div>
 
     <!-- 3: HHA team with blind -->
     <div class="pg-item">
-      <img class="pg-img" src="images/HHA.jpg" alt="Team with Redneck Blind" onclick="openLb(this)" style="object-fit:contain;background:#1e1a10">
+      <img class="pg-img" src="images/HHA.jpg" alt="Team with Redneck Blind" onclick="openLb(this)">
       <div class="pg-overlay"><div><div class="pg-label">Redneck Ready</div><div class="pg-sub">Proven Whitetail Systems Team</div></div></div>
     </div>
 
@@ -323,31 +323,31 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
 
     <!-- 5: Kansas install crew -->
     <div class="pg-item">
-      <img class="pg-img" src="images/Installed kansas 2.jpg" alt="Install crew with blind in Kansas" onclick="openLb(this)" style="object-fit:contain;background:#1e1a10">
+      <img class="pg-img" src="images/Installed kansas 2.jpg" alt="Install crew with blind in Kansas" onclick="openLb(this)">
       <div class="pg-overlay"><div><div class="pg-label">Install Crew</div><div class="pg-sub">Redneck Tower — Kansas</div></div></div>
     </div>
 
     <!-- 6: Trail cam buck with blind in background — wide -->
     <div class="pg-item wide">
-      <img class="pg-img" src="images/Trail cam pic.jpg" alt="Trail cam photo — buck near Redneck Blind" onclick="openLb(this)" style="object-fit:contain;background:#1e1a10">
+      <img class="pg-img" src="images/Trail cam pic.jpg" alt="Trail cam photo — buck near Redneck Blind" onclick="openLb(this)">
       <div class="pg-overlay"><div><div class="pg-label">Trail Cam Proof</div><div class="pg-sub">Big buck working in front of the blind</div></div></div>
     </div>
 
     <!-- 7: Before — overgrown clearing -->
     <div class="pg-item">
-      <img class="pg-img" src="images/Install pic 2.jpg"alt="Before — overgrown site before clearing" onclick="openLb(this)">
+      <img class="pg-img" src="images/Install pic 3.jpg" alt="Before — overgrown site before clearing" onclick="openLb(this)">
       <div class="pg-overlay"><div><div class="pg-label">Before</div><div class="pg-sub">Site before clearing & install</div></div></div>
     </div>
 
     <!-- 8: After — tower blind installed in clearing -->
     <div class="pg-item">
-      <img class="pg-img" src="images/Install pic 3.jpg"alt="After — tower blind installed and ready" onclick="openLb(this)">
+      <img class="pg-img" src="images/Install pic 1.jpg" alt="After — tower blind installed and ready" onclick="openLb(this)">
       <div class="pg-overlay"><div><div class="pg-label">After</div><div class="pg-sub">Cleared & installed — ready to hunt</div></div></div>
     </div>
 
     <!-- 9: Install day — skid steer lifting blind -->
     <div class="pg-item">
-      <img class="pg-img" src="images/Install pic 3.jpg"alt="Skid steer lifting blind onto tower" onclick="openLb(this)">
+      <img class="pg-img" src="images/Install pic 2.jpg" alt="Skid steer lifting blind onto tower" onclick="openLb(this)">
       <div class="pg-overlay"><div><div class="pg-label">Installation Day</div><div class="pg-sub">Professional equipment & crew</div></div></div>
     </div>
 
