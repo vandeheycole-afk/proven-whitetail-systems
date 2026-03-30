@@ -881,15 +881,15 @@
   <form class="cform" name="contact" method="POST" data-netlify="true">
     <input type="hidden" name="form-name" value="contact">
     <div class="crow">
-      <div class="cgroup"><label>First Name</label><input type="text" placeholder="John"></div>
-      <div class="cgroup"><label>Last Name</label><input type="text" placeholder="Smith"></div>
+      <div class="cgroup"><label for="first-name">First Name</label><input id="first-name" type="text" name="first-name" placeholder="John" required></div>
+      <div class="cgroup"><label for="last-name">Last Name</label><input id="last-name" type="text" name="last-name" placeholder="Smith" required></div>
     </div>
-    <div class="cgroup"><label>Email</label><input type="email" placeholder="john@email.com"></div>
-    <div class="cgroup"><label>Phone</label><input type="tel" placeholder="(920) 213-1813"></div>
-    <div class="cgroup"><label>County / Region in Wisconsin</label><input type="text" placeholder="e.g. Outagamie, Waupaca, Marathon County..."></div>
+    <div class="cgroup"><label for="email">Email</label><input id="email" type="email" name="email" placeholder="john@email.com" required></div>
+    <div class="cgroup"><label for="phone">Phone</label><input id="phone" type="tel" name="phone" placeholder="(920) 213-1813"></div>
+    <div class="cgroup"><label for="county">County / Region in Wisconsin</label><input id="county" type="text" name="county" placeholder="e.g. Outagamie, Waupaca, Marathon County..."></div>
     <div class="cgroup">
-      <label>What can we help you with?</label>
-      <select>
+      <label for="service">What can we help you with?</label>
+      <select id="service" name="service">
         <option>Purchasing a blind</option>
         <option>Delivery &amp; installation</option>
         <option>Property consulting / scouting</option>
@@ -899,7 +899,7 @@
         <option>General question</option>
       </select>
     </div>
-    <div class="cgroup"><label>Tell us about your property &amp; goals</label><textarea placeholder="Acreage, terrain, target season, how many blinds..."></textarea></div>
+    <div class="cgroup"><label for="message">Tell us about your property &amp; goals</label><textarea id="message" name="message" placeholder="Acreage, terrain, target season, how many blinds..."></textarea></div>
     <button type="submit" class="csub">Send Message →</button>
 </form>
 </section>
