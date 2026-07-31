@@ -399,7 +399,9 @@ const AWNING_CHOICES = [
   { id: 'trail', label: 'Openroad 270° Trail Series', price: 499.99 },
   { id: 'standard', label: 'Openroad 270° Standard Series', price: 699.99 }
 ];
-
+const TAX_RATE = 0.055; // 5.5% Sales Tax
+const FREIGHT_COST = 250.00; // Flat freight fee
+  
 let currentModelId = '58x89';
 let selections = { truckMount: false, trailerMount: false, ventFan: false, ac: false, roofRack: false, awningWalls: false, awningChoice: 'none' };
 
@@ -516,13 +518,21 @@ function renderSummary(){
     }
   }
 
+  const taxAmount = subtotal * TAX_RATE;
+  const total = subtotal + taxAmount + FREIGHT_COST;
+
+  rows.push(['Freight', FREIGHT_COST]);
+  rows.push([`Sales Tax (${(TAX_RATE * 100).toFixed(1)}%)`, taxAmount]);
+  
   document.getElementById('summaryRows').innerHTML = rows.map(([label,price]) =>
     `<div class="summary-row"><span>${label}</span><span>${fmt(price)}</span></div>`
   ).join('');
   document.getElementById('totalPrice').textContent = fmt(total);
 
   const readoutLines = [`Freedom Camper ${m.id.replace('x','×')} — ${fmt(m.price)}`]
-    .concat(rows.slice(1).map(([label,price]) => `+ ${label} — ${fmt(price)}`))
+    .concat(rows.slice(1, rows.length - 2).map(([label,price]) => `+ ${label} — ${fmt(price)}`))
+    .concat([`+ Freight — ${fmt(FREIGHT_COST)}`])
+    .concat([`+ Sales Tax — ${fmt(taxAmount)}`])
     .concat([`Estimated Total: ${fmt(total)}`]);
   const readout = readoutLines.join('\n');
   document.getElementById('buildReadout').textContent = readout;
