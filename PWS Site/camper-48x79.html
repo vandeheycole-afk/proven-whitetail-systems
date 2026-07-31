@@ -1,122 +1,216 @@
-const MODELS = [
-  {
-    id: '48x79',
-    tag: 'Midsize Truck Camper',
-    name: 'FREEDOM CAMPER<br>48×79',
-    price: 3399.99,
-    desc: "Designed for midsize trucks, the 48×79 Freedom Camper fits between the wheel wells of full-size trucks and slides right into smaller beds. Lightweight enough for two people to load and unload without equipment. Built with ultralight insulation that keeps you warm down to 20°F without adding bulk or weight.",
-    image: 'https://redneckblinds.com/cdn/shop/files/gmc-canyon-48x79-2_2000x.jpg?v=1746134436',
-    rackSize: '58',
-    specs: [
-      ['Exterior','79"L × 48"W × 54"H'],
-      ['Interior','74.5"L × 44"W × 48"H'],
-      ['Weight','180 lbs'],
-      ['Sleeps','2 people'],
-      ['Min Temp','Comfortable to 20°F'],
-      ['Best For','Midsize & full-size trucks'],
-      ['Material','Ultralight insulated shell'],
-      ['Made In','Lamar, Missouri']
-    ],
-    features: [
-      'Fits Toyota Tacoma, Ford Ranger, GMC Canyon, Chevrolet Colorado',
-      'Also fits full-size trucks with tailgate up',
-      '180 lbs — two people can load/unload without equipment',
-      'Proprietary insulation rated to 20°F',
-      'Roof rails for awnings, solar panels, or racks',
-      'Ventilation fan option available',
-      'Modular mounting — truck or trailer',
-      'American-made in Lamar, Missouri'
-    ]
-  },
-  {
-    id: '58x79',
-    tag: 'Full-Size Truck Camper',
-    name: 'FREEDOM CAMPER<br>58×79',
-    price: 3699.99,
-    desc: "The 58×79 is the compact option for full-size truck owners who need the extra interior width but want to keep the camper from overhanging the tailgate. Ideal if you regularly haul a boat or trailer at the same time as your camper setup.",
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freedom Campers | Proven Whitetail Systems</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 40px;
+        }
+        .catalog {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .camper-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 320px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .camper-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            background: #eee;
+            margin-bottom: 15px;
+        }
+        .camper-card h2 {
+            font-size: 1.4em;
+            margin: 0 0 10px 0;
+            line-height: 1.2;
+        }
+        .price {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c7a2c;
+            margin-bottom: 10px;
+        }
+        .tag {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .desc {
+            font-size: 0.95em;
+            line-height: 1.5;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Freedom Campers</h1>
     
-    image: 'IMG_5483.jpeg', 
-    
-    rackSize: '58',
-    specs: [
-      ['Exterior','79"L × 58"W × 54"H'],
-      ['Interior','74.5"L × 54"W × 48"H'],
-      ['Weight','180 lbs'],
-      ['Sleeps','2 people'],
-      ['Min Temp','Comfortable to 20°F'],
-      ["Best For","6'6\" beds — F-150, Silverado, Tundra"],
-      ['Material','Ultralight insulated shell'],
-      ['Made In','Lamar, Missouri']
-    ],
-    features: [
-      'Extra interior width for two comfortable sleepers',
-      "Ideal for 6'6\" truck beds with tailgate down or off",
-      '180 lbs — two people can load/unload',
-      'Proprietary insulation rated to 20°F',
-      'Perfect when simultaneously hauling boat or trailer',
-      'Roof rails for awnings, solar panels, or racks',
-      'Modular truck or trailer mounting kit',
-      'American-made in Lamar, Missouri'
-    ]
-  },
-  {
-    id: '58x89',
-    tag: 'Best Seller — Full-Size',
-    name: 'FREEDOM CAMPER<br>58×89',
-    price: 3799.99,
-    desc: "The most popular Freedom Camper by a wide margin. The extra 10\" of length gives taller campers room to stretch out and provides more storage for gear. Optimized for full-size trucks and standard 5×8 trailers — the go-anywhere basecamp for serious hunters and overlanders.",
-    
-    image: 'IMG_3503.jpeg', 
-    
-    rackSize: '58',
-    specs: [
-      ['Exterior','89"L × 58"W × 54"H'],
-      ['Interior','84.5"L × 54"W × 48"H'],
-      ['Weight','190 lbs'],
-      ['Sleeps','2 people'],
-      ['Min Temp','Comfortable to 20°F'],
-      ['Best For','Full-size trucks & 5×8 trailers'],
-      ['Material','Ultralight insulated shell'],
-      ['Made In','Lamar, Missouri']
-    ],
-    features: [
-      'Most popular size — best for most full-size truck owners',
-      'Extra length for taller sleepers and more gear storage',
-      'Fits all full-size trucks and 5×8 trailers',
-      '190 lbs — two people can load/unload',
-      'Proprietary insulation rated to 20°F',
-      'Roof rails for awnings, solar panels, or racks',
-      'Ventilation fan option available',
-      'American-made in Lamar, Missouri'
-    ]
-  },
-  {
-    id: '72x89',
-    tag: 'New — Largest Size · In Stock 4/12/26',
-    name: 'FREEDOM CAMPER<br>72×89',
-    price: 4499.99,
-    desc: "The biggest Freedom Camper available — and we have it in stock now. The 72×89 adds an extra 14\" of width over the 58\" models, giving you noticeably more room to move inside. Built for long-bed full-size trucks and larger trailers. If you want the most spacious truck bed camp possible, this is it.",
-    image: 'https://redneckblinds.com/cdn/shop/files/tan-freedom-camper-72x89-angle-view_5000x.jpg?v=1775144357',
-    rackSize: '72',
-    specs: [
-      ['Exterior','89"L × 72"W × 54"H'],
-      ['Interior','84.5"L × 68"W × 48"H'],
-      ['Weight','210 lbs'],
-      ['Sleeps','2 people'],
-      ['Min Temp','Comfortable to 20°F'],
-      ['Best For','Long-bed full-size trucks & larger trailers'],
-      ['Material','Ultralight insulated shell'],
-      ['Made In','Lamar, Missouri']
-    ],
-    features: [
-      'Widest Freedom Camper available — 72" interior width',
-      'In stock now — ready for immediate delivery',
-      'Maximum interior room for taller campers and extra gear',
-      'Fits long-bed full-size trucks and larger trailers',
-      'Ultralight insulation rated to 20°F',
-      'Roof rails for awnings, solar panels, or racks',
-      'Ventilation fan and 12V A/C available as add-ons',
-      'American-made in Lamar, Missouri'
-    ]
-  }
-];
+    <!-- This empty container is where the campers will be injected by the script -->
+    <div id="camper-catalog" class="catalog"></div>
+
+    <script>
+        const MODELS = [
+          {
+            id: '48x79',
+            tag: 'Midsize Truck Camper',
+            name: 'FREEDOM CAMPER<br>48×79',
+            price: 3399.99,
+            desc: "Designed for midsize trucks, the 48×79 Freedom Camper fits between the wheel wells of full-size trucks and slides right into smaller beds. Lightweight enough for two people to load and unload without equipment. Built with ultralight insulation that keeps you warm down to 20°F without adding bulk or weight.",
+            image: 'https://redneckblinds.com/cdn/shop/files/gmc-canyon-48x79-2_2000x.jpg?v=1746134436',
+            rackSize: '58',
+            specs: [
+              ['Exterior','79"L × 48"W × 54"H'],
+              ['Interior','74.5"L × 44"W × 48"H'],
+              ['Weight','180 lbs'],
+              ['Sleeps','2 people'],
+              ['Min Temp','Comfortable to 20°F'],
+              ['Best For','Midsize & full-size trucks'],
+              ['Material','Ultralight insulated shell'],
+              ['Made In','Lamar, Missouri']
+            ],
+            features: [
+              'Fits Toyota Tacoma, Ford Ranger, GMC Canyon, Chevrolet Colorado',
+              'Also fits full-size trucks with tailgate up',
+              '180 lbs — two people can load/unload without equipment',
+              'Proprietary insulation rated to 20°F',
+              'Roof rails for awnings, solar panels, or racks',
+              'Ventilation fan option available',
+              'Modular mounting — truck or trailer',
+              'American-made in Lamar, Missouri'
+            ]
+          },
+          {
+            id: '58x79',
+            tag: 'Full-Size Truck Camper',
+            name: 'FREEDOM CAMPER<br>58×79',
+            price: 3699.99,
+            desc: "The 58×79 is the compact option for full-size truck owners who need the extra interior width but want to keep the camper from overhanging the tailgate. Ideal if you regularly haul a boat or trailer at the same time as your camper setup.",
+            image: 'IMG_5483.jpeg', 
+            rackSize: '58',
+            specs: [
+              ['Exterior','79"L × 58"W × 54"H'],
+              ['Interior','74.5"L × 54"W × 48"H'],
+              ['Weight','180 lbs'],
+              ['Sleeps','2 people'],
+              ['Min Temp','Comfortable to 20°F'],
+              ["Best For","6'6\" beds — F-150, Silverado, Tundra"],
+              ['Material','Ultralight insulated shell'],
+              ['Made In','Lamar, Missouri']
+            ],
+            features: [
+              'Extra interior width for two comfortable sleepers',
+              "Ideal for 6'6\" truck beds with tailgate down or off",
+              '180 lbs — two people can load/unload',
+              'Proprietary insulation rated to 20°F',
+              'Perfect when simultaneously hauling boat or trailer',
+              'Roof rails for awnings, solar panels, or racks',
+              'Modular truck or trailer mounting kit',
+              'American-made in Lamar, Missouri'
+            ]
+          },
+          {
+            id: '58x89',
+            tag: 'Best Seller — Full-Size',
+            name: 'FREEDOM CAMPER<br>58×89',
+            price: 3799.99,
+            desc: "The most popular Freedom Camper by a wide margin. The extra 10\" of length gives taller campers room to stretch out and provides more storage for gear. Optimized for full-size trucks and standard 5×8 trailers — the go-anywhere basecamp for serious hunters and overlanders.",
+            image: 'IMG_6470.jpeg', 
+            rackSize: '58',
+            specs: [
+              ['Exterior','89"L × 58"W × 54"H'],
+              ['Interior','84.5"L × 54"W × 48"H'],
+              ['Weight','190 lbs'],
+              ['Sleeps','2 people'],
+              ['Min Temp','Comfortable to 20°F'],
+              ['Best For','Full-size trucks & 5×8 trailers'],
+              ['Material','Ultralight insulated shell'],
+              ['Made In','Lamar, Missouri']
+            ],
+            features: [
+              'Most popular size — best for most full-size truck owners',
+              'Extra length for taller sleepers and more gear storage',
+              'Fits all full-size trucks and 5×8 trailers',
+              '190 lbs — two people can load/unload',
+              'Proprietary insulation rated to 20°F',
+              'Roof rails for awnings, solar panels, or racks',
+              'Ventilation fan option available',
+              'American-made in Lamar, Missouri'
+            ]
+          },
+          {
+            id: '72x89',
+            tag: 'New — Largest Size',
+            name: 'FREEDOM CAMPER<br>72×89',
+            price: 4499.99,
+            desc: "The biggest Freedom Camper available — and we have it in stock now. The 72×89 adds an extra 14\" of width over the 58\" models, giving you noticeably more room to move inside. Built for long-bed full-size trucks and larger trailers. If you want the most spacious truck bed camp possible, this is it.",
+            image: 'https://redneckblinds.com/cdn/shop/files/tan-freedom-camper-72x89-angle-view_5000x.jpg?v=1775144357',
+            rackSize: '72',
+            specs: [
+              ['Exterior','89"L × 72"W × 54"H'],
+              ['Interior','84.5"L × 68"W × 48"H'],
+              ['Weight','210 lbs'],
+              ['Sleeps','2 people'],
+              ['Min Temp','Comfortable to 20°F'],
+              ['Best For','Long-bed full-size trucks & larger trailers'],
+              ['Material','Ultralight insulated shell'],
+              ['Made In','Lamar, Missouri']
+            ],
+            features: [
+              'Widest Freedom Camper available — 72" interior width',
+              'In stock now — ready for immediate delivery',
+              'Maximum interior room for taller campers and extra gear',
+              'Fits long-bed full-size trucks and larger trailers',
+              'Ultralight insulation rated to 20°F',
+              'Roof rails for awnings, solar panels, or racks',
+              'Ventilation fan and 12V A/C available as add-ons',
+              'American-made in Lamar, Missouri'
+            ]
+          }
+        ];
+
+        // This script runs automatically to build the layout on your webpage
+        const catalog = document.getElementById('camper-catalog');
+        
+        MODELS.forEach(model => {
+            const card = document.createElement('div');
+            card.className = 'camper-card';
+            
+            card.innerHTML = `
+                <img src="${model.image}" alt="Image of ${model.id}">
+                <h2>${model.name}</h2>
+                <div class="price">$${model.price.toLocaleString()}</div>
+                <div class="tag">${model.tag}</div>
+                <div class="desc">${model.desc}</div>
+            `;
+            
+            catalog.appendChild(card);
+        });
+    </script>
+</body>
+</html>
