@@ -496,24 +496,24 @@ function renderOptions(){
 function renderSummary(){
   const m = getModel(currentModelId);
   let rows = [];
-  let total = m.price;
+  let subtotal = m.price;
   rows.push([`Freedom Camper ${m.id.replace('x','×')}`, m.price]);
 
   OPTIONS.forEach(opt => {
     if (opt.isAwningGroup || opt.requires) return;
     if (selections[opt.id]){
       const p = resolvePrice(opt, m);
-      total += p;
+      subtotal += p;
       rows.push([opt.name, p]);
     }
   });
 
   if (selections.awningChoice !== 'none'){
     const choice = AWNING_CHOICES.find(c => c.id === selections.awningChoice);
-    total += choice.price;
+    subtotal += choice.price;
     rows.push([choice.label, choice.price]);
     if (selections.awningWalls){
-      total += 399.99;
+      subtotal += 399.99;
       rows.push(['270° Awning Walls', 399.99]);
     }
   }
