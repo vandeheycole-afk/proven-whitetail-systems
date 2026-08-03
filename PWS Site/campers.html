@@ -31,6 +31,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .nav-links a:hover,.nav-links a.active{color:var(--blaze)}
 .nav-cta{background:var(--rust)!important;color:var(--white)!important;padding:10px 22px!important;font-weight:700!important;letter-spacing:2px!important;transition:background .2s!important}
 .nav-cta:hover{background:var(--blaze)!important}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:none;border:none;cursor:pointer;padding:0;flex-shrink:0}
+.hamburger span{display:block;width:26px;height:2px;background:var(--parchment);transition:transform .25s ease,opacity .25s ease}
+.mobile-menu{position:fixed;top:88px;left:0;right:0;z-index:199;background:var(--timber);border-bottom:2px solid var(--rust);display:flex;flex-direction:column;max-height:0;overflow:hidden;transition:max-height .3s ease}
+.mobile-menu.open{max-height:520px}
+.mobile-menu a{padding:16px 24px;color:var(--stone);text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;border-bottom:1px solid rgba(181,82,26,0.15)}
+.mobile-menu a:hover{color:var(--blaze)}
+.mobile-menu .mobile-cta{background:var(--rust);color:var(--white);text-align:center;font-weight:700;border-bottom:none}
 /* SHARED UTILS */
 .eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--blaze);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:12px}
 .eyebrow::before{content:'';display:block;width:34px;height:2px;background:var(--rust);flex-shrink:0}
@@ -152,7 +159,13 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
 
 /* MOBILE */
 @media(max-width:900px){
-  nav{padding:0 18px}.nav-links{display:none}
+  nav{padding:0 18px}
+  .nav-links{display:none}
+  .nav-logo{gap:10px}
+  .nav-logo img{height:38px}
+  .nav-logo-top{font-size:15px;letter-spacing:1.5px}
+  .nav-logo-sub{display:none}
+  .hamburger{display:flex}
   .page-hero{padding:120px 24px 40px}
 
   /* Model strip becomes a short horizontal-scroll bar instead of a
@@ -216,11 +229,48 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
     <li><a href="index.html#contact">Contact</a></li>
     <li><a href="index.html#contact" class="nav-cta">Get a Quote</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="blinds.html">Blinds</a>
+  <a href="cameras.html">Cameras</a>
+  <a href="campers.html">Campers</a>
+  <a href="bikes.html">E-Bikes</a>
+  <a href="gallery.html">Our Work</a>
+  <a href="index.html#contact">Contact</a>
+  <a href="index.html#contact" class="mobile-cta">Get a Quote →</a>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const spans = hamburger.querySelectorAll('span');
+    if (mobileMenu.classList.contains('open')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px,5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity=''; });
+    });
+  });
+</script>
 
 <div class="page-hero">
   <div class="page-hero-content">
-    <a href="campers.html" class="page-hero-back">← Back to Home</a>
+    <a href="campers.html" class="page-hero-back">← All Freedom Campers</a>
+
     <div class="eyebrow">Freedom Camper Builder</div>
     <h1 class="section-title">Build Your Camper</h1>
     <p>Pick a size, choose your color, add the options you want, and see your price update in real time — tax and freight included.</p>
