@@ -119,6 +119,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
   z-index: 1; /* Keeps camper and accessories in front of the woods */
 }
 
+.mount-layer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+  z-index: 2; /* Truck bed / trailer sits in front of the camper body */
+}
+
 /* INFO PANEL */
 .prod-info{padding:56px 60px 100px;background:var(--earth)}
 .prod-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--blaze);font-weight:700;margin-bottom:12px}
@@ -340,6 +351,9 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
       <img src="" class="camper-layer acc-layer" id="layer-awning" style="display: none;">
       <img src="" class="camper-layer acc-layer" id="layer-fan" style="display: none;">
       <img src="" class="camper-layer acc-layer" id="layer-rack" style="display: none;">
+
+      <!-- TRUCK BED / TRAILER — sits in front of the camper -->
+      <img src="" class="mount-layer" id="layer-mount" style="display: none;">
     </div>
   </div>
 
@@ -461,7 +475,9 @@ const MODELS = [
       ac: '48_79 A_C.png',
       awning: '48_79 Awning.png',
       fan: '48_79 Vent Fan.png',
-      rack: '' 
+      rack: '',
+      truckBase: '48_79 Truck Base.png',
+      trailerBase: ''
     }
   },
   {
@@ -477,7 +493,9 @@ const MODELS = [
       ac: '58_79 A_C.png',
       awning: '58_79 Awning.png', 
       fan: '58_79 Vent Fan.png',
-      rack: '58_79 Roof Rack.png'
+      rack: '58_79 Roof Rack.png',
+      truckBase: '58_79 Truck Base - Ford 8ft.png',
+      trailerBase: '58_79 Trailer Base.png'
     }
   },
   {
@@ -493,7 +511,9 @@ const MODELS = [
       ac: '58_89 A_C.png',
       awning: '58_89 Awning.png',
       fan: '58_89 Vent Fan.png', 
-      rack: '58_89 Roof Rack.png' 
+      rack: '58_89 Roof Rack.png',
+      truckBase: '58_89 Truck Base - Ford 8ft.png',
+      trailerBase: '58_89 Trailer Base.png'
     }
   },
   {
@@ -509,7 +529,9 @@ const MODELS = [
       ac: '72 _ 89 A_C.png',
       awning: '72 _ 89 Awning.png',
       fan: '72 _ 89 Vent Fan.png',
-      rack: '72 _ 89 Roof Rack.png'
+      rack: '72 _ 89 Roof Rack.png',
+      truckBase: '',
+      trailerBase: '72 _ 89 Trailer Base.png'
     }
   }
 ];
@@ -577,6 +599,7 @@ function renderModelStrip(){
   strip.querySelectorAll('.model-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       currentModelId = btn.dataset.id;
+      const m = getModel(currentModelId);
       
       // LOGIC CHECK: Clean up incompatible selections for 48x79
       if (currentModelId === '48x79') {
@@ -585,6 +608,12 @@ function renderModelStrip(){
           selections.ventFan = false;
         }
       }
+
+      // LOGIC CHECK: Clear a mount selection this model doesn't support
+      // (e.g. Trailer Mount was checked, then the person switched to the
+      // 48×79, which has no trailer artwork)
+      if (selections.truckMount && !m.assets.truckBase) selections.truckMount = false;
+      if (selections.trailerMount && !m.assets.trailerBase) selections.trailerMount = false;
       
       renderAll();
     });
@@ -629,6 +658,12 @@ function renderOptions(){
   OPTIONS.forEach(opt => {
     // Hide Roof Rack if 48x79 is selected
     if (opt.id === 'roofRack' && currentModelId === '48x79') return;
+
+    // Hide Truck/Trailer Mount Kit if this model has no matching base artwork
+    // (e.g. the 72×89 is too large for a truck bed; the 48×79 doesn't make
+    // sense on a trailer)
+    if (opt.id === 'truckMount' && !m.assets.truckBase) return;
+    if (opt.id === 'trailerMount' && !m.assets.trailerBase) return;
     
     // Hide Awning Walls if no awning is selected
     if (opt.requiresAwning && selections.awningChoice === 'none') return;
@@ -715,6 +750,8 @@ function renderSummary(){
     
     // Don't calculate these if hidden
     if (opt.id === 'roofRack' && currentModelId === '48x79') return; 
+    if (opt.id === 'truckMount' && !m.assets.truckBase) return;
+    if (opt.id === 'trailerMount' && !m.assets.trailerBase) return;
     if (opt.requiresAwning && selections.awningChoice === 'none') return;
     
     if (selections[opt.id]){
@@ -748,12 +785,39 @@ function renderAll(){
   renderOptions();
   renderSummary();
 
+  const m = getModel(currentModelId);
+
   document.getElementById('layer-ac').style.display = selections.ac ? 'block' : 'none';
   document.getElementById('layer-fan').style.display = selections.ventFan ? 'block' : 'none';
   document.getElementById('layer-rack').style.display = (selections.roofRack && currentModelId !== '48x79') ? 'block' : 'none'; 
   
   // Display the awning layer whenever ANY awning is selected
   document.getElementById('layer-awning').style.display = (selections.awningChoice !== 'none') ? 'block' : 'none';
+
+  // TRUCK BED / TRAILER — shown in front of the camper when the matching
+  // mount kit is selected and this model has that artwork available.
+  const mountLayer = document.getElementById('layer-mount');
+  const baseLayer = document.getElementById('layer-base');
+  let mountSrc = '';
+  if (selections.truckMount && m.assets.truckBase) {
+    mountSrc = m.assets.truckBase;
+  } else if (selections.trailerMount && m.assets.trailerBase) {
+    mountSrc = m.assets.trailerBase;
+  }
+
+  if (mountSrc) {
+    mountLayer.src = mountSrc;
+    mountLayer.style.display = 'block';
+  } else {
+    mountLayer.style.display = 'none';
+  }
+
+  // Special case: the 48×79's truck-bed artwork already has the camper
+  // drawn into the scene (unlike the other truck-bed images, which are
+  // an empty bed only), so hide the separate camper-body layer here to
+  // avoid showing two campers stacked on top of each other.
+  const hideBaseCamper = currentModelId === '48x79' && selections.truckMount && !!m.assets.truckBase;
+  baseLayer.style.display = hideBaseCamper ? 'none' : 'block';
 }
 
 // Initial load
