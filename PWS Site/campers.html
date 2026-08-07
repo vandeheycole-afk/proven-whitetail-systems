@@ -130,6 +130,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
   z-index: 2; /* Truck bed / trailer sits in front of the camper body */
 }
 
+#layer-awning{
+  z-index: 3; /* Awning is always the front-most layer, even in front of the truck bed/trailer */
+}
+
 /* INFO PANEL */
 .prod-info{padding:56px 60px 100px;background:var(--earth)}
 .prod-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--blaze);font-weight:700;margin-bottom:12px}
