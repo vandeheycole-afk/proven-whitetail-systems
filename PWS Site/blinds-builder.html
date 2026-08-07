@@ -95,6 +95,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .photo-status{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;font-weight:700;padding:5px 10px;margin-bottom:14px;border-radius:2px}
 .photo-status.full{background:rgba(62,90,68,0.12);color:var(--blaze)}
 .photo-status.partial{background:rgba(180,120,20,0.12);color:#8a5a12}
+/* MINI INQUIRY FORM */
+.mini-form{background:var(--timber);border:1px solid rgba(62,90,68,0.2);border-top:3px solid var(--rust);padding:32px;margin-bottom:40px}
+.mini-form-title{font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:2px;color:var(--parchment);margin-bottom:8px;text-transform:uppercase}
+.mini-form-sub{font-size:12.5px;color:var(--stone);font-weight:300;margin-bottom:20px;line-height:1.6}
+.mf-group{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.mf-group label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);font-weight:700}
+.mf-group input,.mf-group textarea,.mf-group select{background:rgba(59,50,38,0.035);border:1.5px solid rgba(62,90,68,0.25);padding:11px 14px;font-family:'Source Sans 3',sans-serif;font-size:13px;color:var(--parchment);outline:none;transition:border-color .2s;-webkit-appearance:none;width:100%}
+.mf-group input:focus,.mf-group textarea:focus,.mf-group select:focus{border-color:var(--rust)}
+.mf-group input::placeholder,.mf-group textarea::placeholder{color:rgba(59,50,38,0.4)}
+.mf-group textarea{resize:vertical;min-height:70px}
+.mf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mf-submit{background:var(--rust);color:var(--white);border:none;padding:13px 28px;font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;border-bottom:3px solid #1F2E22;transition:background .2s;width:100%;margin-top:4px}
+.mf-submit:hover{background:var(--blaze)}
+.mf-build-readout{background:rgba(59,50,38,0.04);border:1px solid rgba(62,90,68,0.15);padding:14px 16px;font-size:12px;line-height:1.7;color:var(--stone);margin-bottom:16px;white-space:pre-wrap;font-family:'Source Sans 3',monospace}
 
 /* FOOTER */
 footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(--rust)}
@@ -235,10 +249,10 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
     </div>
 
     <div class="options-box">
-      <div class="opt-title">Delivery</div>
+      <div class="opt-title">Delivery &amp; Installation</div>
       <label style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--parchment);cursor:pointer">
         <input type="checkbox" id="installCheck" style="margin-top:3px;width:17px;height:17px;accent-color:var(--rust);flex-shrink:0;cursor:pointer">
-        <span>Include professional installation — we'll follow up to schedule delivery and setup</span>
+        <span>I'd like delivery and/or installation — <strong>not included</strong> in the price above. We'll follow up to discuss pricing based on your location.</span>
       </label>
     </div>
 
@@ -248,8 +262,24 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
       <div class="summary-row"><span>Sales Tax (5.5%)</span><span id="taxRow"></span></div>
       <div class="summary-row"><span>Freight</span><span id="freightRow"></span></div>
       <div class="summary-row total"><span>Estimated Total</span><span id="totalPrice"></span></div>
-      <div class="summary-note">Freight is an estimated flat rate and will be confirmed at order time. Installation is scheduled separately and billed based on your location.</div>
+      <div class="summary-note">Freight is an estimated flat rate and will be confirmed at order time. Delivery/installation is priced separately and billed based on your location.</div>
     </div>
+
+    <form class="mini-form" name="blind-buildout" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="blind-buildout">
+      <input type="hidden" name="bot-field">
+      <input type="hidden" name="buildout-summary" id="buildoutSummaryField">
+      <div class="mini-form-title">Send This Buildout For a Quote</div>
+      <p class="mini-form-sub">We'll follow up with final pricing, including delivery/installation if requested above.</p>
+      <div class="mf-build-readout" id="buildReadout"></div>
+      <div class="mf-row">
+        <div class="mf-group"><label for="inq-name">Name</label><input id="inq-name" type="text" name="name" placeholder="Your name" required></div>
+        <div class="mf-group"><label for="inq-phone">Phone</label><input id="inq-phone" type="tel" name="phone" placeholder="(920) 000-0000"></div>
+      </div>
+      <div class="mf-group"><label for="inq-email">Email</label><input id="inq-email" type="email" name="email" placeholder="you@email.com" required></div>
+      <div class="mf-group"><label for="inq-message">Message</label><textarea id="inq-message" name="message" placeholder="Property details, timeline, questions..."></textarea></div>
+      <button type="submit" class="mf-submit">Send Buildout &amp; Inquire →</button>
+    </form>
 
   </div>
 </div>
@@ -655,6 +685,20 @@ function renderSummary(){
   document.getElementById('taxRow').textContent = fmt(taxAmount);
   document.getElementById('freightRow').textContent = fmt(FREIGHT_COST);
   document.getElementById('totalPrice').textContent = fmt(total);
+
+  // Build the plain-text readout sent along with the inquiry form
+  const readoutLines = rows.map(([label, price]) => `${label} — ${fmt(price)}`);
+  readoutLines.push(`Sales Tax (5.5%) — ${fmt(taxAmount)}`);
+  readoutLines.push(`Freight (est.) — ${fmt(FREIGHT_COST)}`);
+  readoutLines.push(`Estimated Total — ${fmt(total)}`);
+  readoutLines.push(
+    selections.install
+      ? 'Delivery/Installation Requested: YES — not included above, price to be discussed'
+      : 'Delivery/Installation Requested: No (customer pickup)'
+  );
+  const readout = readoutLines.join('\n');
+  document.getElementById('buildReadout').textContent = readout;
+  document.getElementById('buildoutSummaryField').value = readout;
 }
 
 function renderAll(){
@@ -678,6 +722,7 @@ document.getElementById('standHeight').addEventListener('change', (e) => {
 });
 document.getElementById('installCheck').addEventListener('change', (e) => {
   selections.install = e.target.checked;
+  renderSummary();
 });
 
 renderAll();
