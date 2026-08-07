@@ -197,7 +197,7 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
 .lb-close{position:fixed;top:16px;right:24px;font-size:42px;color:#fff;cursor:pointer;line-height:1;opacity:.8;transition:opacity .2s;background:none;border:none;font-family:sans-serif;z-index:10000}
 .lb-close:hover{opacity:1}
 
-
+@media(max-width:900px){
   nav{padding:0 18px}
   .nav-links{display:none}
   .nav-logo{gap:10px}
@@ -423,32 +423,31 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
     4. Add "wide" to the class (class="pg-item wide") if you want that
        photo to span two grid columns instead of one — do this sparingly,
        for your best photo of the batch.
-    5. Delete a placeholder tile below (or overwrite it) once you have
-       a real photo to put in its place — you don't need to keep any
-       set number of tiles, the grid reflows automatically.
+    5. There's no set number of tiles to keep — the grid reflows
+       automatically as you add more.
 
     EXAMPLE (copy this, then remove the surrounding comment markers):
 
     <div class="pg-item">
-      <img class="pg-img" src="images/Customer Camper - 1.jpg" alt="Customer build in the Badlands!" onclick="openLb(this)">
-      <div class="pg-overlay"><div><div class="pg-label"/div><div class="pg-sub">58x89 Grey — Badlands</div></div></div>
+      <img class="pg-img" src="images/YourFileName.jpg" alt="Short description of the photo" onclick="openLb(this)">
+      <div class="pg-overlay"><div><div class="pg-label">Customer Name</div><div class="pg-sub">58x89 Grey — NE Wisconsin</div></div></div>
     </div>
   -->
   <div class="photo-grid">
 
-      <div class="pg-item">
-      <img class="pg-img" src="images/Customer Camper - 1.jpg" alt="Customer build in the Badlands!" onclick="openLb(this)">
-      <div class="pg-overlay"><div><div class="pg-label"/div><div class="pg-sub">58x89 Grey — Badlands</div></div></div>
+    <div class="pg-item wide">
+      <img class="pg-img" src="images/1786119683067_Customer_camper_trip.jpg" alt="Freedom Camper camped along a Wisconsin lakeshore" onclick="openLb(this)">
+      <div class="pg-overlay"><div><div class="pg-label">Lakeside Camp Setup</div><div class="pg-sub">Freedom Camper — Wisconsin Lakeshore</div></div></div>
     </div>
 
-     <div class="pg-item">
-      <img class="pg-img" src="images/POD camper Image.jpg" alt="New POD Camper at Huntstock Midwest" onclick="openLb(this)">
-      <div class="pg-overlay"><div><div class="pg-label"/div><div class="pg-sub">58x89 POD Camper</div></div></div>
+    <div class="pg-item">
+      <img class="pg-img" src="images/1786119683067_Customer_Camper_-_1.jpg" alt="Freedom Camper mounted on a Chevy Silverado in the Badlands" onclick="openLb(this)">
+      <div class="pg-overlay"><div><div class="pg-label">Badlands Road Trip</div><div class="pg-sub">Freedom Camper — South Dakota Badlands</div></div></div>
     </div>
 
-   <div class="pg-item">
-      <img class="pg-img" src="images/Customer camper trip.jpg" alt="Customer build in the U.P!" onclick="openLb(this)">
-      <div class="pg-overlay"><div><div class="pg-label"/div><div class="pg-sub">58x89 Tan — Northwoods</div></div></div>
+    <div class="pg-item">
+      <img class="pg-img" src="images/1786119683068_POD_camper_Image.jpg" alt="Freedom Campers POD trailer-mounted camper on display" onclick="openLb(this)">
+      <div class="pg-overlay"><div><div class="pg-label">Freedom Camper POD</div><div class="pg-sub">Trailer-Mounted Display Unit</div></div></div>
     </div>
 
   </div>
