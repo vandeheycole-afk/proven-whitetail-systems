@@ -90,6 +90,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .summary-row.total{border-top:1px solid rgba(62,90,68,0.35);margin-top:6px;padding-top:12px;font-size:17px;color:var(--ink);font-weight:700}
 .summary-row.total span:last-child{color:var(--blaze);font-family:'Oswald',sans-serif}
 .summary-note{font-size:11px;color:var(--stone);font-weight:300;margin-top:10px;line-height:1.6}
+.add-cart-btn{width:100%;background:transparent;color:var(--rust);border:1.5px solid var(--rust);padding:12px 14px;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s;margin-top:14px}
+.add-cart-btn:hover{background:var(--rust);color:var(--white)}
+
+/* CART */
+.cart-box{background:var(--timber);border:1px solid rgba(62,90,68,0.2);border-top:3px solid var(--rust);padding:26px;margin-bottom:28px}
+.cart-title{font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:2px;color:var(--blaze);margin-bottom:4px;text-transform:uppercase;display:flex;align-items:center;justify-content:space-between}
+.cart-count{font-size:11px;color:var(--stone);font-weight:600;letter-spacing:0;text-transform:none}
+.cart-empty{font-size:13px;color:var(--stone);font-weight:300;line-height:1.7;padding:6px 0}
+.cart-item{border-bottom:1px solid rgba(62,90,68,0.15);padding:14px 0}
+.cart-item:first-of-type{border-top:1px solid rgba(62,90,68,0.15);margin-top:14px}
+.cart-item-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.cart-item-name{font-family:'Oswald',sans-serif;font-size:14px;font-weight:700;color:var(--ink);letter-spacing:.5px}
+.cart-item-price{font-size:14px;color:var(--blaze);font-weight:700;white-space:nowrap}
+.cart-item-detail{font-size:12px;color:var(--stone);font-weight:300;margin-top:3px;line-height:1.6}
+.cart-item-remove{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--stone);font-weight:700;background:none;border:none;cursor:pointer;padding:0;margin-top:8px;text-decoration:underline;text-underline-offset:3px}
+.cart-item-remove:hover{color:var(--rust)}
+.cart-totals{margin-top:10px}
 
 /* PHOTO STATUS BADGE */
 .photo-status{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;font-weight:700;padding:5px 10px;margin-bottom:14px;border-radius:2px}
@@ -264,15 +281,21 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
       <div class="summary-row"><span>Sales Tax (5.5%)</span><span id="taxRow"></span></div>
       <div class="summary-row"><span>Freight</span><span id="freightRow"></span></div>
       <div class="summary-row total"><span>Estimated Total</span><span id="totalPrice"></span></div>
-      <div class="summary-note">Freight is an estimated flat rate and will be confirmed at order time. Delivery/installation is priced separately and billed based on your location.</div>
+      <div class="summary-note">Freight is an estimated flat rate per blind and will be confirmed at order time. Delivery/installation is priced separately and billed based on your location.</div>
+      <button type="button" class="add-cart-btn" id="addToCartBtn">+ Add This Blind to Cart</button>
+    </div>
+
+    <div class="cart-box">
+      <div class="cart-title"><span>Your Cart</span><span class="cart-count" id="cartCount"></span></div>
+      <div id="cartContent"></div>
     </div>
 
     <form class="mini-form" name="blind-buildout" method="POST" data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="blind-buildout">
       <input type="hidden" name="bot-field">
       <input type="hidden" name="buildout-summary" id="buildoutSummaryField">
-      <div class="mini-form-title">Send This Buildout For a Quote</div>
-      <p class="mini-form-sub">We'll follow up with final pricing, including delivery/installation if requested above.</p>
+      <div class="mini-form-title">Send Your Quote Request</div>
+      <p class="mini-form-sub">This will send everything in your cart. If you haven't added your current build yet, click "Add This Blind to Cart" above first.</p>
       <div class="mf-build-readout" id="buildReadout"></div>
       <div class="mf-row">
         <div class="mf-group"><label for="inq-name">Name</label><input id="inq-name" type="text" name="name" placeholder="Your name" required></div>
@@ -663,24 +686,37 @@ function renderStandFields(){
   priceNote.textContent = price > 0 ? `+ ${fmt(price)}` : '';
 }
 
-function renderSummary(){
+// Build a plain object describing the item currently configured in the
+// builder (not yet added to the cart). Shared by the on-screen summary,
+// the "Add to Cart" button, and the plain-text quote readout.
+function currentBuildItem(){
   const m = getModel(currentModelId);
   const basePrice = selections.color === 'camo' && m.camo ? m.camo : m.green;
-  const rows = [[`${m.name} (${selections.color === 'camo' ? 'Camo' : 'Green'})`, basePrice]];
-  let subtotal = basePrice;
-
+  const colorLabel = selections.color === 'camo' ? 'Camo' : 'Green';
+  let standLabel = null;
+  let standPriceVal = 0;
   if (selections.standType !== 'none') {
-    const price = standPrice(selections.standType, selections.standHeight);
+    standPriceVal = standPrice(selections.standType, selections.standHeight);
     const meta = STAND_TYPE_META[selections.standType];
-    const label = meta.needsHeight
-      ? `${selections.standHeight}' ${meta.label.replace('Deluxe ', 'Deluxe ')}`
-      : meta.label;
-    rows.push([label, price]);
-    subtotal += price;
+    standLabel = meta.needsHeight ? `${selections.standHeight}' ${meta.label}` : meta.label;
   }
+  return {
+    modelName: m.name,
+    colorLabel,
+    basePrice,
+    standLabel,
+    standPriceVal,
+    subtotal: basePrice + standPriceVal
+  };
+}
 
-  const taxAmount = subtotal * TAX_RATE;
-  const total = subtotal + taxAmount + FREIGHT_COST;
+function renderSummary(){
+  const item = currentBuildItem();
+  const rows = [[`${item.modelName} (${item.colorLabel})`, item.basePrice]];
+  if (item.standLabel) rows.push([item.standLabel, item.standPriceVal]);
+
+  const taxAmount = item.subtotal * TAX_RATE;
+  const total = item.subtotal + taxAmount + FREIGHT_COST;
 
   document.getElementById('summaryRows').innerHTML = rows.map(([label,price]) =>
     `<div class="summary-row"><span>${label}</span><span>${fmt(price)}</span></div>`
@@ -688,18 +724,100 @@ function renderSummary(){
   document.getElementById('taxRow').textContent = fmt(taxAmount);
   document.getElementById('freightRow').textContent = fmt(FREIGHT_COST);
   document.getElementById('totalPrice').textContent = fmt(total);
+}
 
-  // Build the plain-text readout sent along with the inquiry form
-  const readoutLines = rows.map(([label, price]) => `${label} — ${fmt(price)}`);
-  readoutLines.push(`Sales Tax (5.5%) — ${fmt(taxAmount)}`);
-  readoutLines.push(`Freight (est.) — ${fmt(FREIGHT_COST)}`);
-  readoutLines.push(`Estimated Total — ${fmt(total)}`);
-  readoutLines.push(
+// ================== CART ==================
+let cart = [];
+let cartIdCounter = 1;
+
+function addToCart(){
+  const item = currentBuildItem();
+  cart.push({ id: cartIdCounter++, ...item });
+  renderCart();
+  document.getElementById('cartContent').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function removeFromCart(id){
+  cart = cart.filter(i => i.id !== id);
+  renderCart();
+}
+
+function cartTotals(){
+  const subtotal = cart.reduce((sum, i) => sum + i.subtotal, 0);
+  const tax = subtotal * TAX_RATE;
+  const freight = FREIGHT_COST * cart.length;
+  const total = subtotal + tax + freight;
+  return { subtotal, tax, freight, total };
+}
+
+function renderCart(){
+  const countEl = document.getElementById('cartCount');
+  const contentEl = document.getElementById('cartContent');
+  countEl.textContent = cart.length ? `${cart.length} blind${cart.length > 1 ? 's' : ''}` : '';
+
+  if (!cart.length) {
+    contentEl.innerHTML = `<p class="cart-empty">Your cart is empty. Configure a blind above and click "Add This Blind to Cart" — you can add as many as you'd like before sending your quote request.</p>`;
+  } else {
+    const t = cartTotals();
+    const itemsHtml = cart.map(i => `
+      <div class="cart-item">
+        <div class="cart-item-hd">
+          <div class="cart-item-name">${i.modelName} (${i.colorLabel})</div>
+          <div class="cart-item-price">${fmt(i.subtotal)}</div>
+        </div>
+        <div class="cart-item-detail">${i.standLabel ? i.standLabel : 'No stand — blind only'}</div>
+        <button type="button" class="cart-item-remove" onclick="removeFromCart(${i.id})">Remove</button>
+      </div>
+    `).join('');
+    const totalsHtml = `
+      <div class="cart-totals">
+        <div class="summary-row"><span>Items Subtotal</span><span>${fmt(t.subtotal)}</span></div>
+        <div class="summary-row"><span>Sales Tax (5.5%)</span><span>${fmt(t.tax)}</span></div>
+        <div class="summary-row"><span>Freight (${cart.length} × ${fmt(FREIGHT_COST)})</span><span>${fmt(t.freight)}</span></div>
+        <div class="summary-row total"><span>Cart Total</span><span>${fmt(t.total)}</span></div>
+      </div>
+    `;
+    contentEl.innerHTML = itemsHtml + totalsHtml;
+  }
+
+  updateInquiryReadout();
+}
+
+// Builds the plain-text summary sent with the inquiry form. Uses the full
+// cart if anything has been added; otherwise falls back to whatever is
+// currently configured in the builder so single-blind orders still work
+// without requiring an explicit "Add to Cart" click.
+function updateInquiryReadout(){
+  const lines = [];
+
+  if (cart.length) {
+    cart.forEach((i, idx) => {
+      lines.push(`Blind ${idx + 1}: ${i.modelName} (${i.colorLabel}) — ${fmt(i.basePrice)}`);
+      if (i.standLabel) lines.push(`  + ${i.standLabel} — ${fmt(i.standPriceVal)}`);
+    });
+    const t = cartTotals();
+    lines.push(`Items Subtotal — ${fmt(t.subtotal)}`);
+    lines.push(`Sales Tax (5.5%) — ${fmt(t.tax)}`);
+    lines.push(`Freight (${cart.length} × ${fmt(FREIGHT_COST)}) — ${fmt(t.freight)}`);
+    lines.push(`Cart Total — ${fmt(t.total)}`);
+  } else {
+    const item = currentBuildItem();
+    lines.push(`${item.modelName} (${item.colorLabel}) — ${fmt(item.basePrice)}`);
+    if (item.standLabel) lines.push(`${item.standLabel} — ${fmt(item.standPriceVal)}`);
+    const taxAmount = item.subtotal * TAX_RATE;
+    const total = item.subtotal + taxAmount + FREIGHT_COST;
+    lines.push(`Sales Tax (5.5%) — ${fmt(taxAmount)}`);
+    lines.push(`Freight (est.) — ${fmt(FREIGHT_COST)}`);
+    lines.push(`Estimated Total — ${fmt(total)}`);
+  }
+
+  lines.push(
     selections.install
       ? 'Delivery/Installation Requested: YES — not included above, price to be discussed'
       : 'Delivery/Installation Requested: No (customer pickup)'
   );
-  const readout = readoutLines.join('\n');
+
+  const readout = lines.join('\n');
   document.getElementById('buildReadout').textContent = readout;
   document.getElementById('buildoutSummaryField').value = readout;
 }
@@ -710,6 +828,7 @@ function renderAll(){
   renderStandFields();
   renderSummary();
   renderGallery(getModel(currentModelId));
+  renderCart();
 }
 
 document.getElementById('standType').addEventListener('change', (e) => {
@@ -725,8 +844,9 @@ document.getElementById('standHeight').addEventListener('change', (e) => {
 });
 document.getElementById('installCheck').addEventListener('change', (e) => {
   selections.install = e.target.checked;
-  renderSummary();
+  updateInquiryReadout();
 });
+document.getElementById('addToCartBtn').addEventListener('click', addToCart);
 
 renderAll();
 </script>
