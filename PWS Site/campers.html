@@ -158,7 +158,46 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
 .fcopy{font-size:11px;color:rgba(251,249,240,0.4);letter-spacing:1px}
 
 /* MOBILE */
-@media(max-width:900px){
+/* ABOUT / WHY FREEDOM CAMPERS SECTION */
+.about-section{background:var(--earth);padding:100px 80px}
+.about-hd{max-width:700px;margin-bottom:52px}
+.about-hd p{font-size:15px;line-height:1.8;color:var(--stone);font-weight:300;max-width:620px;margin-top:16px}
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.feat-card{display:grid;grid-template-columns:1fr 1fr;gap:0;overflow:hidden;min-height:320px}
+.feat-card-img{background-size:cover;background-position:center;filter:brightness(0.75) saturate(0.7);transition:filter .4s}
+.feat-card:hover .feat-card-img{filter:brightness(0.65) saturate(0.6)}
+.feat-card-body{background:var(--timber);padding:36px 32px;display:flex;flex-direction:column;justify-content:center;border-top:3px solid var(--rust)}
+.feat-card-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--blaze);font-weight:700;margin-bottom:10px}
+.feat-card-name{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;letter-spacing:1.5px;color:var(--ink);line-height:1;margin-bottom:12px}
+.feat-card-desc{font-size:13.5px;line-height:1.75;color:var(--stone);font-weight:300}
+.feat-card-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.feat-card-tag-pill{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--blaze);background:rgba(62,90,68,0.12);border:1px solid rgba(62,90,68,0.25);padding:5px 11px}
+
+/* CUSTOMER BUILDS PHOTO GRID */
+.builds-section{background:var(--timber);padding:100px 80px}
+.builds-hd{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:52px;flex-wrap:wrap}
+.builds-hd p{font-size:14px;line-height:1.75;color:var(--stone);font-weight:300;max-width:520px;margin-top:14px}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.pg-item{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--bark-lt)}
+.pg-item.wide{grid-column:span 2;aspect-ratio:16/7}
+.pg-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:brightness(0.85) saturate(0.8);transition:filter .35s,transform .45s;cursor:pointer}
+.pg-item:hover .pg-img{filter:brightness(0.7) saturate(0.7);transform:scale(1.05)}
+.pg-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;padding:20px;background:linear-gradient(to top,rgba(18,16,10,0.85) 0%,transparent 55%);opacity:0;transition:opacity .3s;pointer-events:none}
+.pg-item:hover .pg-overlay{opacity:1}
+.pg-label{font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:1.5px;color:var(--white);font-weight:700}
+.pg-sub{font-size:11px;color:rgba(251,249,240,0.75);font-weight:300;margin-top:3px}
+.pg-placeholder{background:rgba(62,90,68,0.04);border:2px dashed rgba(62,90,68,0.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;aspect-ratio:4/3;color:var(--stone);text-align:center;padding:20px}
+.pg-placeholder-icon{font-size:28px;opacity:.5}
+.pg-placeholder-text{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:var(--stone)}
+
+/* LIGHTBOX (for customer build photos) */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;align-items:center;justify-content:center;padding:40px}
+.lightbox.open{display:flex}
+.lightbox-img{max-width:90vw;max-height:90vh;width:auto;height:auto;object-fit:contain;box-shadow:0 0 60px rgba(0,0,0,0.8)}
+.lb-close{position:fixed;top:16px;right:24px;font-size:42px;color:#fff;cursor:pointer;line-height:1;opacity:.8;transition:opacity .2s;background:none;border:none;font-family:sans-serif;z-index:10000}
+.lb-close:hover{opacity:1}
+
+
   nav{padding:0 18px}
   .nav-links{display:none}
   .nav-logo{gap:10px}
@@ -195,6 +234,15 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
   .prod-layout{grid-template-columns:1fr}
   .prod-gallery{position:relative;height:320px;top:auto}
   .prod-info{padding:36px 20px 60px}
+
+  .about-section,.builds-section{padding:56px 24px}
+  .feat-grid{grid-template-columns:1fr}
+  .feat-card{grid-template-columns:1fr}
+  .feat-card-img{min-height:200px}
+  .builds-hd{flex-direction:column;align-items:flex-start}
+  .photo-grid{grid-template-columns:repeat(2,1fr)}
+  .pg-item.wide,.pg-placeholder.wide{grid-column:span 2;aspect-ratio:2/1}
+
   footer{padding:48px 24px 28px}.ftop{grid-template-columns:1fr;gap:28px}
 }
 </style>
@@ -314,6 +362,114 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
 
   </div>
 </div>
+
+<!-- WHAT IS A FREEDOM CAMPER / WHY BUY -->
+<section class="about-section">
+  <div class="about-hd">
+    <div class="eyebrow">From the Makers of Redneck Blinds</div>
+    <h2 class="section-title" style="color:var(--ink)">WHAT IS A FREEDOM CAMPER?</h2>
+    <p>A Freedom Camper is a rugged, fiberglass truck camper built with the same obsessive attention to durability as a Redneck Blind — because it's made by the same people. No wood framing to rot, no fabric seams to fail. Just a maintenance-free shell that seals tight against weather, pests, and cold, and drops straight into your truck bed so you can take your camp anywhere the truck can go.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-card-img" style="background-image:url('https://redneckblinds.com/cdn/shop/files/mule-deer-packing-freedom-camper_5000x.jpg?v=1746134436')"></div>
+      <div class="feat-card-body">
+        <div class="feat-card-tag">Off-Grid Ready</div>
+        <div class="feat-card-name">BUILT FOR THE BACKCOUNTRY</div>
+        <p class="feat-card-desc">Fiberglass construction means no water damage, no soft spots, and no annual maintenance. Pack it into remote hunting camps or trailheads a stock camper wouldn't survive, season after season.</p>
+        <div class="feat-card-tags">
+          <span class="feat-card-tag-pill">Fiberglass Build</span>
+          <span class="feat-card-tag-pill">Off-Grid Capable</span>
+          <span class="feat-card-tag-pill">All-Season</span>
+        </div>
+      </div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-img" style="background-image:url('https://redneckblinds.com/cdn/shop/files/gmc-canyon-48x79-2_2000x.jpg?v=1746134436')"></div>
+      <div class="feat-card-body">
+        <div class="feat-card-tag">Why Choose Freedom</div>
+        <div class="feat-card-name">FITS YOUR TRUCK, NOT THE OTHER WAY AROUND</div>
+        <p class="feat-card-desc">Sized specifically for mid-size and full-size truck beds — no overhang, no oversized-load headaches. Choose your bed length and configure options through the builder above, and it fits like it was made for your truck. Because it was.</p>
+        <div class="feat-card-tags">
+          <span class="feat-card-tag-pill">Truck-Bed Fit</span>
+          <span class="feat-card-tag-pill">Low Maintenance</span>
+          <span class="feat-card-tag-pill">American Made</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOMER BUILDS -->
+<section class="builds-section">
+  <div class="builds-hd">
+    <div>
+      <div class="eyebrow">Real Builds. Real Customers.</div>
+      <h2 class="section-title" style="color:var(--ink)">CUSTOMER FREEDOM CAMPERS</h2>
+      <p>Every Freedom Camper we deliver gets put to work. Here's what they look like once they're out with our customers — hunting camp, work truck, or weekend rig.</p>
+    </div>
+    <a href="index.html#contact" class="btn-ghost">Send Us Your Build →</a>
+  </div>
+
+  <!--
+    HOW TO ADD A NEW CUSTOMER BUILD PHOTO
+    ======================================
+    1. Save the photo into the same "images" folder used by gallery.html
+       (e.g. images/YourFileName.jpg).
+    2. Copy the example block below, paste it into .photo-grid (right
+       before the closing </div> of the grid), and delete the <!-- -->
+       comment markers around it so it actually renders.
+    3. Update the src, alt, pg-label, and pg-sub to match the new photo.
+    4. Add "wide" to the class (class="pg-item wide") if you want that
+       photo to span two grid columns instead of one — do this sparingly,
+       for your best photo of the batch.
+    5. Delete a placeholder tile below (or overwrite it) once you have
+       a real photo to put in its place — you don't need to keep any
+       set number of tiles, the grid reflows automatically.
+
+    EXAMPLE (copy this, then remove the surrounding comment markers):
+
+    <div class="pg-item">
+      <img class="pg-img" src="images/YourFileName.jpg" alt="Short description of the photo" onclick="openLb(this)">
+      <div class="pg-overlay"><div><div class="pg-label">Customer Name</div><div class="pg-sub">58x89 Grey — NE Wisconsin</div></div></div>
+    </div>
+  -->
+  <div class="photo-grid">
+
+    <div class="pg-placeholder wide">
+      <div class="pg-placeholder-icon">📸</div>
+      <div class="pg-placeholder-text">Add a customer build photo here</div>
+    </div>
+
+    <div class="pg-placeholder">
+      <div class="pg-placeholder-icon">📸</div>
+      <div class="pg-placeholder-text">Add a customer build photo here</div>
+    </div>
+
+    <div class="pg-placeholder">
+      <div class="pg-placeholder-icon">📸</div>
+      <div class="pg-placeholder-text">Add a customer build photo here</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIGHTBOX (click any customer build photo to enlarge) -->
+<div class="lightbox" id="lightbox" onclick="closeLb()">
+  <button class="lb-close" onclick="closeLb()">✕</button>
+  <img class="lightbox-img" id="lb-img" src="" alt="">
+</div>
+<script>
+function openLb(img){
+  document.getElementById('lb-img').src = img.src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
 
 <script>
 const MODELS = [
