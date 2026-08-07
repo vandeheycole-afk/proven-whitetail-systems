@@ -9,14 +9,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-:root{--earth:#18160F;--timber:#2C2416;--pine:#293820;--lichen:#4A5C34;--rust:#B5521A;--blaze:#D4782A;--blaze-lt:#EDA050;--parchment:#EDE5CC;--stone:#C4BB9E;--bark-lt:#352C1A;--white:#F6F1E6}
+:root{--earth:#EAE3C9;--timber:#F4F1DE;--pine:#DCE5DA;--lichen:#8FB496;--rust:#3E5A44;--blaze:#4F7358;--blaze-lt:#7FA085;--parchment:#3B3226;--stone:#6E6248;--bark-lt:#DCD2AE;--white:#FBF9F0;--ink:#3B3226;--banner:#5C4C3A}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{font-family:'Source Sans 3',sans-serif;background:var(--earth);color:var(--parchment);overflow-x:hidden}
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 52px;height:88px;background:rgba(24,22,15,0.97);backdrop-filter:blur(16px);border-bottom:2px solid var(--rust)}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 52px;height:88px;background:rgba(92,76,58,0.97);backdrop-filter:blur(16px);border-bottom:2px solid var(--rust)}
 .nav-logo{display:flex;align-items:center;gap:16px;text-decoration:none}
-.nav-logo img{height:52px;width:auto;filter:invert(1) sepia(1) saturate(3) hue-rotate(10deg) brightness(1.1);flex-shrink:0}
+.nav-logo img{height:52px;width:auto;border-radius:50%;flex-shrink:0}
 .nav-logo-text{display:flex;flex-direction:column;gap:4px}
 .nav-logo-top{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;letter-spacing:4px;color:var(--blaze);text-transform:uppercase;line-height:1;white-space:nowrap}
 .nav-logo-sub{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--stone);font-weight:400;white-space:nowrap}
@@ -29,7 +29,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--blaze);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:12px}
 .eyebrow::before{content:'';display:block;width:34px;height:2px;background:var(--rust);flex-shrink:0}
 .section-title{font-family:'Oswald',sans-serif;font-size:clamp(36px,5vw,60px);font-weight:700;letter-spacing:2px;line-height:.95;text-transform:uppercase}
-.btn-blaze{background:var(--rust);color:var(--white);font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:15px 36px;border:none;cursor:pointer;text-decoration:none;display:inline-block;border-bottom:3px solid #6e2800;transition:background .2s,transform .15s}
+.btn-blaze{background:var(--rust);color:var(--white);font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:15px 36px;border:none;cursor:pointer;text-decoration:none;display:inline-block;border-bottom:3px solid #1F2E22;transition:background .2s,transform .15s}
 .btn-blaze:hover{background:var(--blaze);transform:translateY(-2px)}
 .btn-ghost{color:var(--parchment);font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(237,229,204,0.32);padding-bottom:3px;transition:color .2s,border-color .2s}
 .btn-ghost:hover{color:var(--blaze);border-color:var(--blaze)}
@@ -41,13 +41,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .page-hero-back:hover{color:var(--blaze)}
 /* PRODUCT GRID (category pages) */
 .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:80px;background:var(--earth)}
-.cat-card{background:var(--timber);border:1px solid rgba(181,82,26,0.1);overflow:hidden;cursor:pointer;text-decoration:none;display:block;transition:border-color .25s}
-.cat-card:hover{border-color:rgba(181,82,26,0.4)}
+.cat-card{background:var(--timber);border:1px solid rgba(62,90,68,0.1);overflow:hidden;cursor:pointer;text-decoration:none;display:block;transition:border-color .25s}
+.cat-card:hover{border-color:rgba(62,90,68,0.4)}
 .cat-card-img{height:300px;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#1e1a10;filter:brightness(0.85) saturate(0.75);transition:filter .4s,transform .5s}
 .cat-card:hover .cat-card-img{filter:brightness(0.75) saturate(0.65);transform:scale(1.03)}
 .cat-card-body{padding:28px 26px}
 .cat-card-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--blaze);font-weight:700;margin-bottom:8px}
-.cat-card-name{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;letter-spacing:1.5px;color:var(--white);line-height:1;margin-bottom:10px}
+.cat-card-name{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;letter-spacing:1.5px;color:var(--ink);line-height:1;margin-bottom:10px}
 .cat-card-desc{font-size:13px;line-height:1.7;color:var(--stone);font-weight:300;margin-bottom:18px}
 .cat-card-link{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blaze);font-weight:700}
 /* PRODUCT DETAIL PAGE */
@@ -59,12 +59,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .prod-back{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:8px;margin-bottom:32px;transition:color .2s}
 .prod-back:hover{color:var(--blaze)}
 .prod-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--blaze);font-weight:700;margin-bottom:12px}
-.prod-name{font-family:'Oswald',sans-serif;font-size:clamp(36px,4vw,56px);font-weight:700;letter-spacing:2px;line-height:.95;color:var(--white);margin-bottom:24px}
+.prod-name{font-family:'Oswald',sans-serif;font-size:clamp(36px,4vw,56px);font-weight:700;letter-spacing:2px;line-height:.95;color:var(--ink);margin-bottom:24px}
 .prod-desc{font-size:15px;line-height:1.85;color:var(--stone);font-weight:300;margin-bottom:36px}
 .prod-specs{margin-bottom:40px}
 .prod-specs-title{font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:2px;color:var(--blaze);margin-bottom:16px;text-transform:uppercase}
-.spec-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(181,82,26,0.15)}
-.spec-row:first-of-type{border-top:1px solid rgba(181,82,26,0.15)}
+.spec-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(62,90,68,0.15)}
+.spec-row:first-of-type{border-top:1px solid rgba(62,90,68,0.15)}
 .spec-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);font-weight:600}
 .spec-val{font-size:14px;color:var(--parchment);font-weight:400;text-align:right}
 .prod-features{margin-bottom:40px}
@@ -72,30 +72,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .feature-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:14px;line-height:1.6;color:var(--stone);font-weight:300}
 .feature-item::before{content:'✓';color:var(--blaze);font-weight:700;flex-shrink:0;margin-top:1px}
 /* MINI INQUIRY FORM */
-.mini-form{background:var(--timber);border:1px solid rgba(181,82,26,0.2);border-top:3px solid var(--rust);padding:32px;margin-bottom:40px}
+.mini-form{background:var(--timber);border:1px solid rgba(62,90,68,0.2);border-top:3px solid var(--rust);padding:32px;margin-bottom:40px}
 .mini-form-title{font-family:'Oswald',sans-serif;font-size:20px;letter-spacing:2px;color:var(--parchment);margin-bottom:20px;text-transform:uppercase}
 .mf-group{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
 .mf-group label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--stone);font-weight:700}
-.mf-group input,.mf-group textarea,.mf-group select{background:rgba(255,255,255,0.04);border:1.5px solid rgba(181,82,26,0.2);padding:11px 14px;font-family:'Source Sans 3',sans-serif;font-size:13px;color:var(--parchment);outline:none;transition:border-color .2s;-webkit-appearance:none}
+.mf-group input,.mf-group textarea,.mf-group select{background:rgba(59,50,38,0.035);border:1.5px solid rgba(62,90,68,0.2);padding:11px 14px;font-family:'Source Sans 3',sans-serif;font-size:13px;color:var(--parchment);outline:none;transition:border-color .2s;-webkit-appearance:none}
 .mf-group input:focus,.mf-group textarea:focus,.mf-group select:focus{border-color:var(--rust)}
-.mf-group input::placeholder,.mf-group textarea::placeholder{color:rgba(196,187,158,0.4)}
+.mf-group input::placeholder,.mf-group textarea::placeholder{color:rgba(59,50,38,0.4)}
 .mf-group textarea{resize:vertical;min-height:80px}
 .mf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.mf-submit{background:var(--rust);color:var(--white);border:none;padding:13px 28px;font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;border-bottom:3px solid #6e2800;transition:background .2s;width:100%;margin-top:4px}
+.mf-submit{background:var(--rust);color:var(--white);border:none;padding:13px 28px;font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;border-bottom:3px solid #1F2E22;transition:background .2s;width:100%;margin-top:4px}
 .mf-submit:hover{background:var(--blaze)}
 /* FOOTER */
-footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust)}
+footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(--rust)}
 .ftop{display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:60px;margin-bottom:40px}
 .flogo{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-.flogo img{height:44px;width:auto;filter:invert(1) sepia(1) saturate(2.5) hue-rotate(15deg) brightness(.95);opacity:.8}
+.flogo img{height:44px;width:auto;border-radius:50%}
 .flogo-name{font-family:'Oswald',sans-serif;font-size:17px;letter-spacing:3px;font-weight:700;color:var(--blaze);text-transform:uppercase;line-height:1}
-.fbrand-desc{font-size:13px;line-height:1.8;color:rgba(196,187,158,0.42);font-weight:300}
+.fbrand-desc{font-size:13px;line-height:1.8;color:rgba(251,249,240,0.62);font-weight:300}
 .fcol-title{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--blaze);font-weight:700;margin-bottom:14px}
 .flinks{list-style:none;display:flex;flex-direction:column;gap:8px}
-.flinks a{font-size:13px;color:rgba(196,187,158,0.48);text-decoration:none;transition:color .2s}
+.flinks a{font-size:13px;color:rgba(251,249,240,0.68);text-decoration:none;transition:color .2s}
 .flinks a:hover{color:var(--blaze)}
 .fbot{border-top:1px solid rgba(255,255,255,0.048);padding-top:20px;display:flex;justify-content:space-between;align-items:center}
-.fcopy{font-size:11px;color:rgba(196,187,158,0.26);letter-spacing:1px}
+.fcopy{font-size:11px;color:rgba(251,249,240,0.4);letter-spacing:1px}
 /* MOBILE */
 @media(max-width:900px){
   nav{padding:0 18px}.nav-links{display:none}
@@ -120,14 +120,14 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
 .fi-card:hover .fi-img{filter:brightness(0.6) saturate(0.6);transform:scale(1.03)}
 .fi-info{padding:28px 32px;background:var(--timber);border-top:3px solid var(--rust)}
 .fi-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--blaze);font-weight:700;margin-bottom:8px}
-.fi-title{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;letter-spacing:1.5px;color:var(--white);margin-bottom:10px}
+.fi-title{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;letter-spacing:1.5px;color:var(--ink);margin-bottom:10px}
 .fi-desc{font-size:13.5px;line-height:1.75;color:var(--stone);font-weight:300}
 .fi-card:first-child .fi-info{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;align-items:start;padding:36px 40px}
-.fi-card:first-child .fi-main-info{border-right:1px solid rgba(181,82,26,0.2);padding-right:48px}
+.fi-card:first-child .fi-main-info{border-right:1px solid rgba(62,90,68,0.2);padding-right:48px}
 .fi-card:first-child .fi-title{font-size:30px}
 .fi-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.fi-pill{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--blaze);background:rgba(181,82,26,0.1);border:1px solid rgba(181,82,26,0.25);padding:5px 12px}
-.fi-placeholder{height:360px;background:rgba(181,82,26,0.04);border:2px dashed rgba(181,82,26,0.18);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.fi-pill{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--blaze);background:rgba(62,90,68,0.1);border:1px solid rgba(62,90,68,0.25);padding:5px 12px}
+.fi-placeholder{height:360px;background:rgba(62,90,68,0.04);border:2px dashed rgba(62,90,68,0.18);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
 .photo-grid-section{background:var(--timber);padding:100px 80px}
 .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:52px}
 .pg-item{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--bark-lt)}
@@ -137,8 +137,8 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
 .pg-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;padding:20px;background:linear-gradient(to top,rgba(18,16,10,0.85) 0%,transparent 55%);opacity:0;transition:opacity .3s;pointer-events:none}
 .pg-item:hover .pg-overlay{opacity:1}
 .pg-label{font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:1.5px;color:var(--white);font-weight:700}
-.pg-sub{font-size:11px;color:var(--stone);font-weight:300;margin-top:3px}
-.pg-placeholder{background:rgba(181,82,26,0.04);border:2px dashed rgba(181,82,26,0.18);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;aspect-ratio:4/3}
+.pg-sub{font-size:11px;color:rgba(251,249,240,0.75);font-weight:300;margin-top:3px}
+.pg-placeholder{background:rgba(62,90,68,0.04);border:2px dashed rgba(62,90,68,0.18);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;aspect-ratio:4/3}
 .pg-placeholder.wide{grid-column:span 2;aspect-ratio:16/7}
 .gallery-cta{background:var(--rust);padding:72px 80px;display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center}
 .gallery-cta-title{font-family:'Oswald',sans-serif;font-size:clamp(28px,4vw,46px);font-weight:700;letter-spacing:2px;line-height:1;color:var(--white)}
@@ -154,7 +154,7 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
   .featured-grid{grid-template-columns:1fr}
   .fi-card:first-child{grid-column:auto}
   .fi-card:first-child .fi-info{grid-template-columns:1fr}
-  .fi-card:first-child .fi-main-info{border-right:none;padding-right:0;border-bottom:1px solid rgba(181,82,26,0.2);padding-bottom:24px;margin-bottom:24px}
+  .fi-card:first-child .fi-main-info{border-right:none;padding-right:0;border-bottom:1px solid rgba(62,90,68,0.2);padding-bottom:24px;margin-bottom:24px}
   .fi-img,.fi-card:first-child .fi-img{height:260px}
   .photo-grid{grid-template-columns:repeat(2,1fr)}
   .pg-item.wide,.pg-placeholder.wide{grid-column:span 2;aspect-ratio:2/1}
@@ -225,7 +225,7 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
   <div class="gallery-hero-content">
     <a href="index.html" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-bottom:24px;transition:color .2s">← Back to Home</a>
     <p class="eyebrow">Real Installs. Real Results.</p>
-    <h1 class="section-title" style="color:var(--white);margin-bottom:20px">OUR WORK</h1>
+    <h1 class="section-title" style="color:var(--ink);margin-bottom:20px">OUR WORK</h1>
     <p style="font-size:17px;line-height:1.85;color:var(--stone);font-weight:300;max-width:580px">Every install tells a story. Browse our work across Northeastern Wisconsin — tower setups, property transformations, and the harvests that followed.</p>
   </div>
 </section>
@@ -233,7 +233,7 @@ footer{background:#0A0907;padding:48px 80px 28px;border-top:2px solid var(--rust
 <!-- FEATURED INSTALLS -->
 <section class="featured">
   <p class="eyebrow">Featured</p>
-  <h2 class="section-title" style="color:var(--white)">FEATURED INSTALLS</h2>
+  <h2 class="section-title" style="color:var(--ink)">FEATURED INSTALLS</h2>
   <div class="featured-grid">
 
     <!-- Featured 1 — Corey's install -->
