@@ -797,7 +797,6 @@ function renderAll(){
   // TRUCK BED / TRAILER — shown in front of the camper when the matching
   // mount kit is selected and this model has that artwork available.
   const mountLayer = document.getElementById('layer-mount');
-  const baseLayer = document.getElementById('layer-base');
   let mountSrc = '';
   if (selections.truckMount && m.assets.truckBase) {
     mountSrc = m.assets.truckBase;
@@ -811,13 +810,6 @@ function renderAll(){
   } else {
     mountLayer.style.display = 'none';
   }
-
-  // Special case: the 48×79's truck-bed artwork already has the camper
-  // drawn into the scene (unlike the other truck-bed images, which are
-  // an empty bed only), so hide the separate camper-body layer here to
-  // avoid showing two campers stacked on top of each other.
-  const hideBaseCamper = currentModelId === '48x79' && selections.truckMount && !!m.assets.truckBase;
-  baseLayer.style.display = hideBaseCamper ? 'none' : 'block';
 }
 
 // Initial load
