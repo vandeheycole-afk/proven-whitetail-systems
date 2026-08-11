@@ -197,6 +197,10 @@
   .cgroup input:focus,.cgroup textarea:focus,.cgroup select:focus{border-color:var(--rust)}
   .cgroup textarea{resize:vertical;min-height:105px}
   .csub{background:var(--earth);color:var(--blaze);border:none;padding:15px 34px;font-family:'Source Sans 3',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;align-self:flex-start;border-bottom:3px solid var(--rust);transition:background .2s}
+  .csub:disabled{opacity:.5;cursor:not-allowed}
+  .quote-status{font-size:13px;font-weight:600;margin-top:2px;display:none}
+  .quote-status.ok{display:block;color:var(--lichen)}
+  .quote-status.err{display:block;color:#e08a7d}
   .csub:hover{background:var(--banner)}
 
   /* FOOTER */
@@ -709,18 +713,19 @@
     </a>
   </div>
 
-  <form class="cform" name="contact" method="POST" data-netlify="true">
+  <form class="cform" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm">
     <input type="hidden" name="form-name" value="contact">
+    <p style="position:absolute;left:-9999px" aria-hidden="true"><label>Leave this field blank: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
     <div class="crow">
-      <div class="cgroup"><label>First Name</label><input type="text" placeholder="John"></div>
-      <div class="cgroup"><label>Last Name</label><input type="text" placeholder="Smith"></div>
+      <div class="cgroup"><label>First Name</label><input type="text" name="first_name" placeholder="John" required></div>
+      <div class="cgroup"><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
     </div>
-    <div class="cgroup"><label>Email</label><input type="email" placeholder="john@email.com"></div>
-    <div class="cgroup"><label>Phone</label><input type="tel" placeholder="(920) 213-1813"></div>
-    <div class="cgroup"><label>County / Region in Wisconsin</label><input type="text" placeholder="e.g. Outagamie, Waupaca, Marathon County..."></div>
+    <div class="cgroup"><label>Email</label><input type="email" name="email" placeholder="john@email.com" required></div>
+    <div class="cgroup"><label>Phone</label><input type="tel" name="phone" placeholder="(920) 213-1813"></div>
+    <div class="cgroup"><label>County / Region in Wisconsin</label><input type="text" name="county" placeholder="e.g. Outagamie, Waupaca, Marathon County..."></div>
     <div class="cgroup">
       <label>What can we help you with?</label>
-      <select>
+      <select name="interest">
         <option>Purchasing a blind</option>
         <option>Delivery &amp; installation</option>
         <option>Property consulting / scouting</option>
@@ -730,8 +735,9 @@
         <option>General question</option>
       </select>
     </div>
-    <div class="cgroup"><label>Tell us about your property &amp; goals</label><textarea placeholder="Acreage, terrain, target season, how many blinds..."></textarea></div>
-    <button type="submit" class="csub">Send Message →</button>
+    <div class="cgroup"><label>Tell us about your property &amp; goals</label><textarea name="message" placeholder="Acreage, terrain, target season, how many blinds..."></textarea></div>
+    <button type="submit" class="csub" id="contactSubmitBtn">Send Message →</button>
+    <p class="quote-status" id="contactStatus"></p>
 </form>
 </section>
 
@@ -775,6 +781,52 @@
     <p class="fcopy">© 2025 Proven Whitetail Systems · Freedom, Wisconsin · Authorized Redneck Blinds Dealer</p>
   </div>
 </footer>
+
+<script>
+// CONTACT FORM SUBMISSION (Netlify Forms, submitted via fetch so the
+// page doesn't navigate away to a blank success page)
+(function(){
+  const form = document.getElementById('contactForm');
+  const btn = document.getElementById('contactSubmitBtn');
+  const status = document.getElementById('contactStatus');
+  if (!form) return;
+
+  function encode(data) {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&');
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    status.className = 'quote-status';
+    status.textContent = '';
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode(data)
+    })
+      .then(() => {
+        status.className = 'quote-status ok';
+        status.textContent = "Thanks! We've got your message and will be in touch shortly.";
+        form.reset();
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+      })
+      .catch(() => {
+        status.className = 'quote-status err';
+        status.textContent = "Something went wrong. Please try again or call us at (920) 213-1813.";
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+      });
+  });
+})();
+</script>
 
 </body>
 </html>
