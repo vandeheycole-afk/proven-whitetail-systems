@@ -157,6 +157,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .summary-row{display:flex;justify-content:space-between;font-size:13.5px;color:var(--stone);padding:6px 0}
 .summary-row.total{border-top:1px solid rgba(62,90,68,0.35);margin-top:8px;padding-top:14px;font-size:18px;color:var(--ink);font-weight:700}
 .summary-row.total span:last-child{color:var(--blaze);font-family:'Oswald',sans-serif}
+/* QUOTE REQUEST FORM */
+.quote-box{background:var(--timber);border:1px solid rgba(62,90,68,0.2);border-top:3px solid var(--rust);padding:28px}
+.quote-box-title{font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:2px;color:var(--blaze);margin-bottom:6px;text-transform:uppercase}
+.quote-box-sub{font-size:13px;color:var(--stone);font-weight:300;margin-bottom:20px;line-height:1.6}
+.cform{display:flex;flex-direction:column;gap:13px}
+.crow{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.cgroup{display:flex;flex-direction:column;gap:6px}
+.cgroup label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blaze);font-weight:700}
+.cgroup input,.cgroup textarea{background:var(--earth);border:1.5px solid rgba(62,90,68,0.2);padding:13px 15px;font-family:'Source Sans 3',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:border-color .2s;-webkit-appearance:none}
+.cgroup input:focus,.cgroup textarea:focus{border-color:var(--rust)}
+.cgroup textarea{resize:vertical;min-height:80px}
+.csub{background:var(--rust);color:var(--white);border:none;padding:15px 34px;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;align-self:flex-start;border-bottom:3px solid #1F2E22;transition:background .2s}
+.csub:hover{background:var(--blaze)}
+.csub:disabled{opacity:.5;cursor:not-allowed}
+.quote-status{font-size:13px;font-weight:600;margin-top:4px;display:none}
+.quote-status.ok{display:block;color:var(--blaze)}
+.quote-status.err{display:block;color:#b23a2f}
+@media(max-width:900px){.crow{grid-template-columns:1fr}}
 
 /* FOOTER */
 footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(--rust)}
@@ -376,6 +394,27 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
       <div class="prod-specs-title" style="margin-bottom:12px">Your Buildout</div>
       <div id="summaryRows"></div>
       <div class="summary-row total"><span>Estimated Total</span><span id="totalPrice"></span></div>
+    </div>
+
+    <div class="quote-box">
+      <div class="quote-box-title">Email This Quote To Us</div>
+      <p class="quote-box-sub">Send us your buildout and contact info and we'll follow up with next steps, financing options, and lead time.</p>
+      <form name="camper-quote" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="cform" id="quoteForm">
+        <input type="hidden" name="form-name" value="camper-quote">
+        <p style="position:absolute;left:-9999px" aria-hidden="true"><label>Leave this field blank: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <input type="hidden" name="build_summary" id="buildSummaryField">
+        <div class="crow">
+          <div class="cgroup"><label>First Name</label><input type="text" name="first_name" placeholder="John" required></div>
+          <div class="cgroup"><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required></div>
+        </div>
+        <div class="crow">
+          <div class="cgroup"><label>Email</label><input type="email" name="email" placeholder="john@email.com" required></div>
+          <div class="cgroup"><label>Phone</label><input type="tel" name="phone" placeholder="(920) 213-1813"></div>
+        </div>
+        <div class="cgroup"><label>Anything else we should know?</label><textarea name="message" placeholder="Timeline, truck/trailer details, questions..."></textarea></div>
+        <button type="submit" class="csub" id="quoteSubmitBtn">Email Me This Quote →</button>
+        <p class="quote-status" id="quoteStatus"></p>
+      </form>
     </div>
 
   </div>
@@ -781,6 +820,16 @@ function renderSummary(){
     `<div class="summary-row"><span>${label}</span><span>${fmt(price)}</span></div>`
   ).join('');
   document.getElementById('totalPrice').textContent = fmt(total);
+
+  const summaryField = document.getElementById('buildSummaryField');
+  if (summaryField) {
+    const lines = rows.map(([label, price]) => `${label}: ${fmt(price)}`);
+    summaryField.value =
+      `Freedom Camper Build Request\n` +
+      `Model: ${(m.name || m.id).replace(/<br\s*\/?>/gi, ' ')}\n\n` +
+      lines.join('\n') +
+      `\nEstimated Total: ${fmt(total)}`;
+  }
 }
 
 function renderAll(){
@@ -818,6 +867,51 @@ function renderAll(){
 
 // Initial load
 renderAll();
+
+// QUOTE FORM SUBMISSION (Netlify Forms, submitted via fetch so the
+// page doesn't navigate away)
+(function(){
+  const form = document.getElementById('quoteForm');
+  const btn = document.getElementById('quoteSubmitBtn');
+  const status = document.getElementById('quoteStatus');
+  if (!form) return;
+
+  function encode(data) {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&');
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    status.className = 'quote-status';
+    status.textContent = '';
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode(data)
+    })
+      .then(() => {
+        status.className = 'quote-status ok';
+        status.textContent = "Thanks! Your buildout has been sent to us — we'll be in touch shortly.";
+        form.reset();
+        renderSummary(); // repopulate the hidden build_summary field
+        btn.textContent = 'Email Me This Quote →';
+        btn.disabled = false;
+      })
+      .catch(() => {
+        status.className = 'quote-status err';
+        status.textContent = "Something went wrong. Please try again or call us at (920) 213-1813.";
+        btn.textContent = 'Email Me This Quote →';
+        btn.disabled = false;
+      });
+  });
+})();
 </script>
 
 <footer>
