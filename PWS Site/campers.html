@@ -398,7 +398,7 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
 
     <div class="quote-box">
       <div class="quote-box-title">Email This Quote To Us</div>
-      <p class="quote-box-sub">Send us your buildout and contact info and we'll follow up with next steps, financing options, and lead time.</p>
+      <p class="quote-box-sub">Send us your buildout and contact info and we'll follow up with next steps and lead time.</p>
       <form name="camper-quote" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="cform" id="quoteForm">
         <input type="hidden" name="form-name" value="camper-quote">
         <p style="position:absolute;left:-9999px" aria-hidden="true"><label>Leave this field blank: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
@@ -589,16 +589,16 @@ const TRUCK_OPTIONS = {
   '48x79': [
     { id: 'f250',     label: 'Ford F250 (8ft Bed)',   file: '48_79 Truck Base.png' },
     { id: 'santacruz', label: 'Hyundai Santa Cruz',   file: '48_79 Truck Base - Santa Cruz.png' },
-    { id: 'tacoma',    label: 'Toyota Tacoma',        file: '48_79 Truck Base - Tacoma.png' },
-    { id: 'colorado',  label: 'Chevy Colorado',       file: '48_79 Truck Base - Colorado.png' }
+    { id: 'tacoma',    label: 'Toyota Tacoma - Coming Soon',        file: '48_79 Truck Base - Tacoma.png' },
+    { id: 'colorado',  label: 'Chevy Colorado - Coming Soon',       file: '48_79 Truck Base - Colorado.png' }
   ],
   '58x79': [
     { id: '8ft', label: 'Ford F250 (8ft Bed)', file: '58_79 Truck Base - Ford 8ft.png' },
-    { id: '6ft', label: 'Ford F250 (6ft Bed)', file: '58_79 Truck Base - Ford 6ft.png' }
+    { id: '5.5ft', label: 'Ford Raptor (5.5ft Bed) - Coming Soon', file: '58_79 Truck Base - Ford Raptor.png' }
   ],
   '58x89': [
     { id: '8ft', label: 'Ford F250 (8ft Bed)', file: '58_89 Truck Base - Ford 8ft.png' },
-    { id: '6ft', label: 'Ford F250 (6ft Bed)', file: '58_89 Truck Base - Ford 6ft.png' }
+    { id: '5.5ft', label: 'Ford Raptor (5.5ft Bed) - Coming Soon', file: '58_89 Truck Base - Ford Raptor.png' }
   ]
 };
 function getTruckOptions(modelId){ return TRUCK_OPTIONS[modelId] || []; }
