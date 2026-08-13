@@ -354,7 +354,7 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
 
     <div class="eyebrow">Freedom Camper Builder</div>
     <h1 class="section-title">Build Your Camper</h1>
-    <p>Pick a size, choose your color, add the options you want, and see your price update in real time — tax and freight shown below.</p>
+    <p>Pick a size, choose your color, add the options you want, and see your price update in real time — tax and freight included.</p>
   </div>
 </div>
 
@@ -579,6 +579,35 @@ const MODELS = [
   }
 ];
 
+// TRUCK / BED OPTIONS — which truck-bed artwork is available per model.
+// The 48×79 (mid-size) offers a choice of mid-size trucks; the 58" models
+// (full-size) offer a choice of bed length on the same Ford F250.
+// NOTE: the "file" values below are the exact filenames renderAll() will
+// request — matching PNGs need to be added alongside the existing
+// "..Truck Base.png" artwork for these to actually render.
+const TRUCK_OPTIONS = {
+  '48x79': [
+    { id: 'f250',     label: 'Ford F250 (8ft Bed)',   file: '48_79 Truck Base.png' },
+    { id: 'santacruz', label: 'Hyundai Santa Cruz',   file: '48_79 Truck Base - Santa Cruz.png' },
+    { id: 'tacoma',    label: 'Toyota Tacoma',        file: '48_79 Truck Base - Tacoma.png' },
+    { id: 'colorado',  label: 'Chevy Colorado',       file: '48_79 Truck Base - Colorado.png' }
+  ],
+  '58x79': [
+    { id: '8ft', label: 'Ford F250 (8ft Bed)', file: '58_79 Truck Base - Ford 8ft.png' },
+    { id: '6ft', label: 'Ford F250 (6ft Bed)', file: '58_79 Truck Base - Ford 6ft.png' }
+  ],
+  '58x89': [
+    { id: '8ft', label: 'Ford F250 (8ft Bed)', file: '58_89 Truck Base - Ford 8ft.png' },
+    { id: '6ft', label: 'Ford F250 (6ft Bed)', file: '58_89 Truck Base - Ford 6ft.png' }
+  ]
+};
+function getTruckOptions(modelId){ return TRUCK_OPTIONS[modelId] || []; }
+function getTruckFile(modelId, choiceId){
+  const list = getTruckOptions(modelId);
+  const match = list.find(t => t.id === choiceId);
+  return match ? match.file : (list[0] ? list[0].file : '');
+}
+
 const OPTIONS = [
   { id: 'truckMount', name: 'Truck Mount Kit', note: 'Hardware for mounting to truck bed rails', price: 99.99 },
   { id: 'trailerMount', name: 'Trailer Mount Kit', note: 'Hardware for flatbed or trailer mounting', price: 39.99 },
@@ -616,6 +645,7 @@ let currentModelId = '58x79';
 let selections = { 
   color: 'grey', 
   truckMount: false,
+  truckChoice: (getTruckOptions(currentModelId)[0] || {}).id || '',
   trailerMount: false,
   ventFan: false, 
   ac: false, 
@@ -655,9 +685,15 @@ function renderModelStrip(){
       // LOGIC CHECK: Clear a mount selection this model doesn't support
       // (e.g. Trailer Mount was checked, then the person switched to the
       // 48×79, which has no trailer artwork)
-      if (selections.truckMount && !m.assets.truckBase) selections.truckMount = false;
+      if (selections.truckMount && !getTruckOptions(currentModelId).length) selections.truckMount = false;
       if (selections.trailerMount && !m.assets.trailerBase) selections.trailerMount = false;
-      
+
+      // Reset the truck/bed choice to a valid option for the new model
+      const validTrucks = getTruckOptions(currentModelId);
+      if (!validTrucks.find(t => t.id === selections.truckChoice)) {
+        selections.truckChoice = (validTrucks[0] || {}).id || '';
+      }
+
       renderAll();
     });
   });
@@ -705,7 +741,7 @@ function renderOptions(){
     // Hide Truck/Trailer Mount Kit if this model has no matching base artwork
     // (e.g. the 72×89 is too large for a truck bed; the 48×79 doesn't make
     // sense on a trailer)
-    if (opt.id === 'truckMount' && !m.assets.truckBase) return;
+    if (opt.id === 'truckMount' && !getTruckOptions(m.id).length) return;
     if (opt.id === 'trailerMount' && !m.assets.trailerBase) return;
     
     // Hide Awning Walls if no awning is selected
@@ -735,6 +771,23 @@ function renderOptions(){
       </label>
       <span class="opt-price">${fmt(price)}</span>
     </div>`;
+
+    // TRUCK / BED PICKER — shown once the Truck Mount Kit is selected,
+    // listing whichever trucks (48×79) or bed lengths (58" models) apply.
+    if (opt.id === 'truckMount' && selections.truckMount) {
+      const truckList = getTruckOptions(m.id);
+      const pickerLabel = m.id === '48x79' ? 'Select Your Truck' : 'Truck Bed Length';
+      html += `<div class="opt-row" style="flex-direction:column;align-items:stretch;gap:8px">
+        <div style="display:flex;justify-content:space-between"><span class="opt-name">${pickerLabel}</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;padding-left:2px">
+          ${truckList.map(t => `
+            <label style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--parchment);cursor:pointer">
+              <input type="radio" name="truckChoice" value="${t.id}" ${selections.truckChoice===t.id?'checked':''} style="accent-color:var(--rust);width:16px;height:16px">
+              ${t.label}
+            </label>`).join('')}
+        </div>
+      </div>`;
+    }
   });
 
   box.innerHTML = html;
@@ -779,6 +832,13 @@ function renderOptions(){
       renderAll();
     });
   });
+
+  box.querySelectorAll('input[name=truckChoice]').forEach(r => {
+    r.addEventListener('change', () => {
+      selections.truckChoice = r.value;
+      renderAll();
+    });
+  });
 }
 
 function renderSummary(){
@@ -793,14 +853,20 @@ function renderSummary(){
     
     // Don't calculate these if hidden
     if (opt.id === 'roofRack' && currentModelId === '48x79') return; 
-    if (opt.id === 'truckMount' && !m.assets.truckBase) return;
+    if (opt.id === 'truckMount' && !getTruckOptions(m.id).length) return;
     if (opt.id === 'trailerMount' && !m.assets.trailerBase) return;
     if (opt.requiresAwning && selections.awningChoice === 'none') return;
     
     if (selections[opt.id]){
       const p = resolvePrice(opt, m);
       subtotal += p; 
-      rows.push([opt.name, p]);
+      let label = opt.name;
+      if (opt.id === 'truckMount') {
+        const truckList = getTruckOptions(m.id);
+        const chosen = truckList.find(t => t.id === selections.truckChoice);
+        if (chosen) label += ` (${chosen.label})`;
+      }
+      rows.push([label, p]);
     }
   });
 
@@ -851,8 +917,8 @@ function renderAll(){
   // mount kit is selected and this model has that artwork available.
   const mountLayer = document.getElementById('layer-mount');
   let mountSrc = '';
-  if (selections.truckMount && m.assets.truckBase) {
-    mountSrc = m.assets.truckBase;
+  if (selections.truckMount && getTruckOptions(m.id).length) {
+    mountSrc = getTruckFile(m.id, selections.truckChoice);
   } else if (selections.trailerMount && m.assets.trailerBase) {
     mountSrc = m.assets.trailerBase;
   }
