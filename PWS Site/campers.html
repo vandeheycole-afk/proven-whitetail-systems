@@ -573,7 +573,7 @@ const MODELS = [
       awning: '72 _ 89 Awning.png',
       fan: '72 _ 89 Vent Fan.png',
       rack: '72 _ 89 Roof Rack.png',
-      truckBase: '',
+      truckBase: '72_89 Truck Base - Ford 8ft.png',
       trailerBase: '72 _ 89 Trailer Base.png'
     }
   }
@@ -599,6 +599,9 @@ const TRUCK_OPTIONS = {
   '58x89': [
     { id: '8ft', label: 'Ford F250 (8ft Bed)', file: '58_89 Truck Base - Ford 8ft.png' },
     { id: '5.5ft', label: 'Ford Raptor (5.5ft Bed)', file: '58_89 Truck Base - Ford Raptor.png' }
+  ]
+  '72x89': [
+    { id: '8ft', label: 'Ford F250 (8ft Bed)', file: '72_89 Truck Base - Ford 8ft.png' }
   ]
 };
 function getTruckOptions(modelId){ return TRUCK_OPTIONS[modelId] || []; }
