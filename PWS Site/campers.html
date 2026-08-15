@@ -55,6 +55,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .page-hero-back:hover{color:var(--blaze)}
 .page-hero p{font-size:15px;line-height:1.8;color:var(--stone);font-weight:300;max-width:600px;margin-top:20px}
 
+/* FAQ ACCORDION */
+.faq-section{padding:80px;background:var(--timber);border-top:2px solid var(--rust)}
+.faq-hd{max-width:700px;margin-bottom:44px}
+.faq-list{max-width:880px}
+.faq-item{border-bottom:1px solid rgba(62,90,68,0.2)}
+.faq-item:first-child{border-top:1px solid rgba(62,90,68,0.2)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;background:none;border:none;text-align:left;padding:24px 4px;cursor:pointer;font-family:'Oswald',sans-serif;font-size:17px;font-weight:600;letter-spacing:.3px;color:var(--ink);transition:color .2s}
+.faq-q:hover{color:var(--blaze)}
+.faq-q-icon{flex-shrink:0;width:26px;height:26px;border:1.5px solid var(--rust);border-radius:50%;position:relative;transition:transform .3s ease,background .2s ease}
+.faq-q-icon::before,.faq-q-icon::after{content:'';position:absolute;background:var(--rust);transition:transform .3s ease,opacity .3s ease}
+.faq-q-icon::before{left:50%;top:20%;bottom:20%;width:2px;transform:translateX(-50%)}
+.faq-q-icon::after{top:50%;left:20%;right:20%;height:2px;transform:translateY(-50%)}
+.faq-item.open .faq-q-icon{background:var(--rust);transform:rotate(180deg)}
+.faq-item.open .faq-q-icon::before{opacity:0}
+.faq-item.open .faq-q-icon::after{background:var(--white)}
+.faq-item.open .faq-q{color:var(--blaze)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a-inner{padding:0 4px 26px;font-size:14.5px;line-height:1.85;color:var(--stone);font-weight:300;max-width:760px}
+.faq-a-inner p{margin-bottom:12px}
+.faq-a-inner p:last-child{margin-bottom:0}
+.faq-a-inner a{color:var(--blaze);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.faq-a-inner a:hover{color:var(--rust)}
+@media(max-width:900px){
+  .faq-section{padding:48px 22px}
+  .faq-q{font-size:15px;padding:18px 2px;gap:14px}
+  .faq-q-icon{width:22px;height:22px}
+  .faq-a-inner{padding:0 2px 20px;font-size:13.5px}
+}
+
 /* MODEL SELECTOR STRIP */
 .model-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rust);border-bottom:2px solid var(--rust);position:sticky;top:88px;z-index:150}
 .model-btn{background:var(--timber);color:var(--stone);border:none;padding:22px 14px;cursor:pointer;text-align:left;transition:background .2s,color .2s;font-family:'Source Sans 3',sans-serif}
@@ -536,6 +565,145 @@ footer{background:var(--banner);padding:48px 80px 28px;border-top:2px solid var(
     </div>
 
 </section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-hd">
+    <div class="eyebrow">Common Questions</div>
+    <h2 class="section-title" style="color:var(--ink)">FREQUENTLY ASKED QUESTIONS</h2>
+  </div>
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span>Does the camper come with a warranty?</span>
+        <span class="faq-q-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <p>Yes, the camper comes with a 3 Year Manufacturing Warranty from <a href="https://freedomcampers.com/" target="_blank" rel="noopener">Freedom Campers</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span>Do you need the Truck Mounting Kit?</span>
+        <span class="faq-q-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <p>The <a href="https://redneckblinds.com/collections/hunting-camper-accessories/products/truck-mounting-kit" target="_blank" rel="noopener">Truck Mounting Kit</a> is required if using a truck bed to carry your Hunting Camper. It is optional when using with a trailer.</p>
+          <p>The truck mounting kit uses four turnbuckles to allow you to quickly and securely attach your camper to the outside rails on your truck bed or attachment points in your trailer. If selected, this kit will be shipped inside your camper. The Truck Mounting Kit includes: x8 side-mount plates, x4 d-rings, x12 hardware, x4 turnbuckles, and an instruction manual.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span>What's included with the Trailer Mounting Kit?</span>
+        <span class="faq-q-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <p>The <a href="https://redneckblinds.com/collections/hunting-camper-accessories/products/trailer-mounting-kit" target="_blank" rel="noopener">trailer mounting kit</a> is recommended if you plan to permanently or semi-permanently attach your camper to your trailer. If selected, this kit will be shipped inside your camper.</p>
+          <p>The Trailer Mounting Kit includes: x6 floor mount plates, x6 hardware, and an instruction manual.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span>Which camper is compatible with my truck?</span>
+        <span class="faq-q-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <p>All full-size trucks that have a 5.5-foot bed or larger. For a complete list of trucks and specs, please <a href="https://cdn.shopify.com/s/files/1/1728/7345/files/truck-compatibility.pdf?v=1761066769" target="_blank" rel="noopener">download our Truck Compatibility Guide</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span>Is the camper suitable for all-season use?</span>
+        <span class="faq-q-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <p>Yes, it's designed with premium insulation to keep hunters warm and dry in various weather conditions. From the middle of winter to the peak of summer, the camper is a great way to stay out of the elements when needed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span>How many people are required to load and unload the camper?</span>
+        <span class="faq-q-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <p>Due to its ultralight build (180-190 pounds), it requires only two people to load, unload, and store.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span>Is the camper customizable?</span>
+        <span class="faq-q-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <p>Our hunting camper is intentionally designed as a minimalist basecamp, ready for you to outfit however you like.</p>
+          <p>Whether you want to mount awnings, solar panels, roof racks, a <a href="https://redneckblinds.com/collections/hunting-camper-accessories/products/12v-camper-air-conditioner" target="_blank" rel="noopener">12V Camper air conditioner</a>, or <a href="https://redneckblinds.com/collections/hunting-camper-accessories/products/12-volt-camper-fan" target="_blank" rel="noopener">a ventilation fan</a>, the Hunting Camper makes it easy to create a setup that fits your hunts.</p>
+          <p>On the roof, you'll find two raised composite wood areas—ideal mounting points for racks, awnings, or solar equipment. For fan installation, follow the manufacturer's instructions as you would with any other camper.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">
+        <span>Do I need a platform for my camper if it is in the truck bed?</span>
+        <span class="faq-q-icon"></span>
+      </button>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          <p>For the 48x79, 58x79, and 58x89 models, a raised platform is required to elevate the camper above your truck's wheel wells. This not only ensures proper fitment but also creates valuable storage space underneath.</p>
+          <p>Multiple aftermarket drawer systems are compatible with the camper.</p>
+          <p>Prefer a custom setup? Follow freedom campers <a href="https://cdn.shopify.com/s/files/1/1728/7345/files/diy-freedom-camper-platform.pdf?v=1747070749" target="_blank" rel="noopener">DIY guide on how to build an efficient and cost-effective platform</a>.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    const btn = item.querySelector('.faq-q');
+    const panel = item.querySelector('.faq-a');
+    btn.addEventListener('click', function(){
+      const isOpen = item.classList.contains('open');
+      if (isOpen) {
+        item.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        panel.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    });
+  });
+  window.addEventListener('resize', function(){
+    document.querySelectorAll('.faq-item.open').forEach(function(item){
+      const panel = item.querySelector('.faq-a');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    });
+  });
+})();
+</script>
 
 <!-- LIGHTBOX (click any customer build photo to enlarge) -->
 <div class="lightbox" id="lightbox" onclick="closeLb()">
