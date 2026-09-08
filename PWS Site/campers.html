@@ -838,7 +838,6 @@ const MODELS = [
     rackSize: '48',
     assets: {
       baseGrey: '48_79 Grey Base.png',
-      baseTan: '48_79 Tan Base.png',
       ac: '48_79 A_C.png',
       awning: '48_79 Awning.png',
       fan: '48_79 Vent Fan.png',
@@ -851,12 +850,11 @@ const MODELS = [
     id: '58x79',
     tag: 'Full-Size Truck Camper',
     name: 'FREEDOM CAMPER<br>58×79',
-    price: 3699.99,
+    price: 3599.99,
     desc: "The 58×79 is the compact option for full-size truck owners who need the extra interior width but want to keep the camper from overhanging the tailgate.",
     rackSize: '58',
     assets: {
       baseGrey: '58_79 Grey Base.png',
-      baseTan: '58_79 Tan Base.png',
       ac: '58_79 A_C.png',
       awning: '58_79 Awning.png', 
       fan: '58_79 Vent Fan.png',
@@ -869,12 +867,11 @@ const MODELS = [
     id: '58x89',
     tag: 'Best Seller — Full-Size',
     name: 'FREEDOM CAMPER<br>58×89',
-    price: 3799.99,
+    price: 3699.99,
     desc: "The most popular Freedom Camper by a wide margin. The extra 10\" of length gives taller campers room to stretch out and provides more storage for gear. Perfect for trailers or truckbeds alike.",
     rackSize: '58',
     assets: {
       baseGrey: '58_89 Grey Base.png',
-      baseTan: '58_89 Tan Base.png',
       ac: '58_89 A_C.png',
       awning: '58_89 Awning.png',
       fan: '58_89 Vent Fan.png', 
@@ -892,7 +889,6 @@ const MODELS = [
     rackSize: '72',
     assets: {
       baseGrey: '72 _ 89 Grey Base.png',
-      baseTan: '72 _ 89 Tan Base.png',
       ac: '72 _ 89 A_C.png',
       awning: '72 _ 89 Awning.png',
       fan: '72 _ 89 Vent Fan.png',
@@ -1030,7 +1026,7 @@ function renderModelStrip(){
 function renderProduct(){
   const m = getModel(currentModelId);
   
-  document.getElementById('layer-base').src = selections.color === 'tan' ? m.assets.baseTan : m.assets.baseGrey;
+  document.getElementById('layer-base').src = m.assets.baseGrey;
   document.getElementById('layer-ac').src = m.assets.ac;
   document.getElementById('layer-awning').src = m.assets.awning;
   document.getElementById('layer-fan').src = m.assets.fan;
@@ -1046,21 +1042,7 @@ function renderOptions(){
   const m = getModel(currentModelId);
   const box = document.getElementById('optionRows');
   
-  let html = `
-    <div class="opt-row" style="flex-direction:column;align-items:stretch;gap:8px">
-      <div style="display:flex;justify-content:space-between"><span class="opt-name">Exterior Color</span><span class="opt-note">Select your shell color</span></div>
-      <div style="display:flex;gap:16px;padding-left:2px">
-        <label style="display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--parchment);cursor:pointer">
-          <input type="radio" name="camperColor" value="grey" ${selections.color==='grey'?'checked':''} style="accent-color:var(--rust);width:16px;height:16px">
-          Grey
-        </label>
-        <label style="display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--parchment);cursor:pointer">
-          <input type="radio" name="camperColor" value="tan" ${selections.color==='tan'?'checked':''} style="accent-color:var(--rust);width:16px;height:16px">
-          Tan
-        </label>
-      </div>
-    </div>
-  `;
+  let html = ``;
 
   OPTIONS.forEach(opt => {
     // Hide Roof Rack if 48x79 is selected
@@ -1154,13 +1136,6 @@ function renderOptions(){
     });
   });
 
-  box.querySelectorAll('input[name=camperColor]').forEach(r => {
-    r.addEventListener('change', () => {
-      selections.color = r.value;
-      renderAll();
-    });
-  });
-
   box.querySelectorAll('input[name=truckChoice]').forEach(r => {
     r.addEventListener('change', () => {
       selections.truckChoice = r.value;
@@ -1174,7 +1149,7 @@ function renderSummary(){
   let rows = [];
   let subtotal = m.price; 
   
-  rows.push([`Freedom Camper ${m.id.replace('x','×')} (${selections.color === 'tan' ? 'Tan' : 'Grey'})`, m.price]);
+  rows.push([`Freedom Camper ${m.id.replace('x','×')} (Grey)`, m.price]);
 
   OPTIONS.forEach(opt => {
     if (opt.isAwningGroup || opt.requires) return;
@@ -1294,7 +1269,7 @@ function computeCamperItem(){
   }
 
   return {
-    name: `Freedom Camper ${m.id.replace('x','×')} (${selections.color === 'tan' ? 'Tan' : 'Grey'})`,
+    name: `Freedom Camper ${m.id.replace('x','×')} (Grey)`,
     detail: extras.length ? extras.join(', ') : 'No add-ons',
     price: subtotal
   };
